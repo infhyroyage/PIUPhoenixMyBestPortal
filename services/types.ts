@@ -1,0 +1,27 @@
+export type Lv =
+  | "20"
+  | "21"
+  | "22"
+  | "23"
+  | "24"
+  | "25"
+  | "26"
+  | "27over"
+  | "coop";
+
+export type StepType =
+  | "SINGLE"
+  | "DOUBLE"
+  | "S. PERFO."
+  | "D. PERFO."
+  | "CO-OP";
+
+export type Score = {
+  lv: Lv;
+  songName: string;
+  stepType: StepType;
+  thumbnailImgSrc: string;
+  score?: string;
+  gradeImgSrc?: string;
+  plateImgSrc?: string;
+};
