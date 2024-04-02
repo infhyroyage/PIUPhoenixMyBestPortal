@@ -25,3 +25,7 @@ export type Score = {
   gradeImgSrc?: string;
   plateImgSrc?: string;
 };
+
+export type LvPageProps = {
+  params: { lv: Lv };
+};

@@ -1,11 +1,32 @@
-import { getScores } from "@/services/cosmos";
-
 export default async function Page() {
-  const scores = await getScores("20");
   return (
     <>
-      <h1 className="bg-red-400 text-3xl font-bold">Hello, Next.js!</h1>
-      <pre className="font-mono">{JSON.stringify(scores, null, 2)}</pre>
+      <table className="table-auto">
+        <thead>
+          <tr>
+            <th>Song</th>
+            <th>Artist</th>
+            <th>Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+            <td>Malcolm Lockyer</td>
+            <td>1961</td>
+          </tr>
+          <tr>
+            <td>Witchy Woman</td>
+            <td>The Eagles</td>
+            <td>1972</td>
+          </tr>
+          <tr>
+            <td>Shining Star</td>
+            <td>Earth, Wind, and Fire</td>
+            <td>1975</td>
+          </tr>
+        </tbody>
+      </table>
     </>
   );
 }
