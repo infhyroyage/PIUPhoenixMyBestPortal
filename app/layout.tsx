@@ -14,7 +14,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="flex flex-col items-center">
+          <h1 className="mb-8 mt-4 text-3xl font-bold">
+            Pump It Up Phoenix My Best List
+          </h1>
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
