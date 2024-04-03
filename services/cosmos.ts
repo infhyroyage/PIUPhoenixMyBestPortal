@@ -33,7 +33,8 @@ export async function getScores(lv: Lv): Promise<Score[]> {
     `${azureCosmosdbEndpoint}dbs/Scores/colls/${playerName}/docs`,
     {
       body: JSON.stringify({
-        query: "SELECT * FROM c WHERE c.lv = @lv",
+        query:
+          "SELECT c.songName, c.stepType, c.thumbnailImgSrc, c.score, c.gradeImgSrc, c.plateImgSrc FROM c WHERE c.lv = @lv",
         parameters: [{ name: "@lv", value: lv }],
       }),
       headers: {

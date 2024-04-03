@@ -17,7 +17,6 @@ export type StepType =
   | "CO-OP";
 
 export type Score = {
-  lv: Lv;
   songName: string;
   stepType: StepType;
   thumbnailImgSrc: string;
