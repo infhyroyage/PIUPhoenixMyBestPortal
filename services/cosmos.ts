@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { Lv, Score } from "./types";
 
-export async function getScores(lv: Lv): Promise<Score[]> {
+export async function getScores(lv?: Lv): Promise<Score[]> {
   if (!process.env.AZURE_COSMOSDB_ENDPOINT) {
     console.log("AZURE_COSMOSDB_ENDPOINT is not set.");
     return [];
@@ -32,11 +32,18 @@ export async function getScores(lv: Lv): Promise<Score[]> {
   const res = await fetch(
     `${azureCosmosdbEndpoint}dbs/Scores/colls/${playerName}/docs`,
     {
-      body: JSON.stringify({
-        query:
-          "SELECT c.songName, c.stepType, c.thumbnailImgSrc, c.score, c.gradeImgSrc, c.plateImgSrc FROM c WHERE c.lv = @lv",
-        parameters: [{ name: "@lv", value: lv }],
-      }),
+      body: JSON.stringify(
+        lv
+          ? {
+              query:
+                "SELECT c.songName, c.stepType, c.thumbnailImgSrc, c.score, c.gradeImgSrc, c.plateImgSrc FROM c WHERE c.lv = @lv",
+              parameters: [{ name: "@lv", value: lv }],
+            }
+          : {
+              query:
+                "SELECT c.songName, c.stepType, c.thumbnailImgSrc, c.score, c.gradeImgSrc, c.plateImgSrc FROM c",
+            },
+      ),
       headers: {
         Accept: "application/json",
         Authorization: authorization,
