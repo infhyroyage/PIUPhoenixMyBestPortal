@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import NavBar from "./NavBar";
+import NavBar from "../components/NavBar";
 
 export const metadata: Metadata = {
   title: "Phoenix My Best List",
