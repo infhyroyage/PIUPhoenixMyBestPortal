@@ -9,16 +9,9 @@ export type Lv =
   | "27over"
   | "coop";
 
-export type StepType =
-  | "SINGLE"
-  | "DOUBLE"
-  | "S. PERFO."
-  | "D. PERFO."
-  | "CO-OP";
-
 export type Score = {
   songName: string;
-  stepType: StepType;
+  stepType: string;
   thumbnailImgSrc: string;
   score?: string;
   gradeImgSrc?: string;
