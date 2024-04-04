@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function NavBarRight() {
+  // TODO: Show menu by clicking button
+  // https://flowbite.com/docs/components/navbar/#default-navbar
   const pathname: string = usePathname();
 
   return (
