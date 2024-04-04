@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getScores } from "@/services/cosmos";
-import { Lv, LvPageProps, Score } from "@/services/types";
+import { Lv, Score } from "@/services/types";
 
 export function generateStaticParams(): { lv: Lv }[] {
   return [
@@ -16,7 +16,7 @@ export function generateStaticParams(): { lv: Lv }[] {
   ];
 }
 
-export default async function Page({ params }: LvPageProps) {
+export default async function Page({ params }: { params: { lv: Lv } }) {
   const scores = await getScores(params.lv);
 
   return (
