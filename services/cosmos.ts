@@ -51,6 +51,7 @@ export async function getScores(lv?: Lv): Promise<Score[]> {
         "x-ms-date": utcNow,
         "x-ms-documentdb-isquery": "True",
         "x-ms-version": "2018-12-31",
+        "x-ms-documentdb-query-enablecrosspartition": lv ? "False" : "True",
       },
       method: "POST",
     },
