@@ -15,11 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex flex-col items-center">
-          <h1 className="mb-8 mt-4 text-3xl font-bold">
+        <div className="flex min-h-screen flex-col items-center bg-white dark:bg-gray-800">
+          <h1 className="mt-4 text-3xl font-bold text-gray-900 dark:text-white">
             Pump It Up Phoenix My Best List
           </h1>
-          {children}
+          <div className="my-8">{children}</div>
         </div>
       </body>
     </html>
