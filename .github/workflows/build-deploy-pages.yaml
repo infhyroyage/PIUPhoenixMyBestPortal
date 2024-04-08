@@ -5,20 +5,6 @@
 name: Build and Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/build-deploy-pages.yaml
-      - app**
-      - components**
-      - next.config.js
-      - public**
-      - package*.json
-      - postcss.config.js
-      - services**
-      - tailwind.config.js
-      - tsconfig*.json
   schedule:
     - cron: "0 23 * * *"
 
