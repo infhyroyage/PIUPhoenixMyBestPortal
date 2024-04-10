@@ -4,24 +4,24 @@ import { Score } from "@/services/types";
 export default function ScoresTable({ scores }: { scores: Score[] }) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-        <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-left text-gray-500 rtl:text-right dark:text-gray-400">
+        <thead className="bg-gray-50 text-sm uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="py-2 pl-4 pr-2">
               Song
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="py-2 pr-4" />
+            <th scope="col" className="py-2 pr-4">
               Lv.
             </th>
-            <th scope="col" className="px-6 py-3" />
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="py-2 pr-2">
               Score
             </th>
-            <th scope="col" className="px-6 py-3" />
-            <th scope="col" className="px-6 py-3" />
+            <th scope="col" className="py-2" />
+            <th scope="col" className="py-2 pr-4" />
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-xs">
           {scores.map((score: Score) => (
             <tr
               key={`${score.songName}-${score.stepType}`}
@@ -29,36 +29,36 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
             >
               <th
                 scope="row"
-                className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                className="whitespace-nowrap py-2 pl-4 pr-2 font-medium text-gray-900 dark:text-white"
               >
                 {score.songName}
               </th>
-              <td className="px-6 py-4">{score.stepType}</td>
-              <td className="px-6 py-4">
+              <td className="py-2 pr-4">
                 <Image
                   src={score.thumbnailImgSrc}
                   alt={score.songName}
-                  width={100}
-                  height={56}
+                  width={75}
+                  height={42}
                 />
               </td>
-              <td className="px-6 py-4">{score.score || ""}</td>
-              <td className="px-6 py-4">
+              <td className="py-2 pr-4">{score.stepType}</td>
+              <td className="py-2 pr-2">{score.score || ""}</td>
+              <td className="py-2">
                 {score.gradeImgSrc && (
                   <Image
                     src={score.gradeImgSrc}
                     alt={score.songName}
-                    width={80}
-                    height={50}
+                    width={60}
+                    height={39}
                   />
                 )}
               </td>
-              <td className="px-6 py-4">
+              <td className="py-2 pr-4">
                 {score.plateImgSrc && (
                   <Image
                     src={score.plateImgSrc}
                     alt={score.songName}
-                    width={145.5}
+                    width={146}
                     height={33}
                   />
                 )}
