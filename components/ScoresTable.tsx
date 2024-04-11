@@ -37,8 +37,8 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
                 <Image
                   src={score.thumbnailImgSrc}
                   alt={score.songName}
-                  width={75}
-                  height={42}
+                  width={80}
+                  height={64}
                 />
               </td>
               <td className="py-2 pr-4">{score.stepType}</td>
@@ -48,8 +48,8 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
                   <Image
                     src={score.gradeImgSrc}
                     alt={score.songName}
-                    width={60}
-                    height={39}
+                    width={72}
+                    height={32}
                   />
                 )}
               </td>
@@ -58,8 +58,8 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
                   <Image
                     src={score.plateImgSrc}
                     alt={score.songName}
-                    width={146}
-                    height={33}
+                    width={128}
+                    height={29}
                   />
                 )}
               </td>
