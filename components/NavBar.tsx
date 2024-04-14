@@ -136,7 +136,7 @@ export default function NavBar() {
               onClick={(e) => e.stopPropagation()}
             >
               <ul>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -144,7 +144,7 @@ export default function NavBar() {
                     All
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/20"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/20" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -152,7 +152,7 @@ export default function NavBar() {
                     20
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/21"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/21" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -160,7 +160,7 @@ export default function NavBar() {
                     21
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/22"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/22" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -168,7 +168,7 @@ export default function NavBar() {
                     22
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/23"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/23" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -176,7 +176,7 @@ export default function NavBar() {
                     23
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/24"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/24" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -184,7 +184,7 @@ export default function NavBar() {
                     24
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/25"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/25" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -192,7 +192,7 @@ export default function NavBar() {
                     25
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/26"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/26" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -200,7 +200,7 @@ export default function NavBar() {
                     26
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/27over"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/27over" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
@@ -208,7 +208,7 @@ export default function NavBar() {
                     Over 27
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => setIsOpenMenu(false)}>
                   <Link
                     href="/coop"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${pathname === "/coop" ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500" : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"}`}
