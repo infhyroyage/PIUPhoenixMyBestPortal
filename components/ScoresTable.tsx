@@ -4,21 +4,19 @@ import { Score } from "@/services/types";
 export default function ScoresTable({ scores }: { scores: Score[] }) {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table className="w-full text-left text-xs text-gray-500 rtl:text-right dark:text-gray-400">
+      <table className="text-left text-xs text-gray-500 rtl:text-right dark:text-gray-400">
         <thead className="bg-gray-50 uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="py-2 pl-4 pr-2">
+            <th scope="col" className="max-w-40 py-2 pl-4 pr-2">
               Song
             </th>
             <th scope="col" className="py-2 pr-4" />
             <th scope="col" className="py-2 pr-4">
               Lv.
             </th>
-            <th scope="col" className="py-2 pr-2">
+            <th scope="col" className="py-2 pr-4">
               Score
             </th>
-            <th scope="col" className="py-2" />
-            <th scope="col" className="py-2 pr-4" />
           </tr>
         </thead>
         <tbody>
@@ -29,7 +27,7 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
             >
               <th
                 scope="row"
-                className="whitespace-nowrap py-2 pl-4 pr-2 font-medium text-gray-900 dark:text-white"
+                className="max-w-40 overflow-hidden text-ellipsis py-2 pl-4 pr-2 font-medium text-gray-900 dark:text-white"
               >
                 {score.songName}
               </th>
@@ -37,31 +35,37 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
                 <Image
                   src={score.thumbnailImgSrc}
                   alt={score.songName}
-                  width={80}
-                  height={64}
+                  width={(32 * 700) / 393}
+                  height={32}
                 />
               </td>
               <td className="py-2 pr-4">{score.stepType}</td>
-              <td className="py-2 pr-2">{score.score || ""}</td>
-              <td className="py-2">
-                {score.gradeImgSrc && (
-                  <Image
-                    src={score.gradeImgSrc}
-                    alt={score.songName}
-                    width={72}
-                    height={32}
-                  />
-                )}
-              </td>
               <td className="py-2 pr-4">
-                {score.plateImgSrc && (
-                  <Image
-                    src={score.plateImgSrc}
-                    alt={score.songName}
-                    width={128}
-                    height={29}
-                  />
-                )}
+                <div>
+                  <div className="h-4 text-center">{score.score || ""}</div>
+                  <div className="mt-2 flex space-x-1">
+                    <div className="relative h-6 w-auto min-w-[calc(24px*289/130)]">
+                      {score.gradeImgSrc && (
+                        <Image
+                          src={score.gradeImgSrc}
+                          alt={score.songName}
+                          layout="fill"
+                          objectFit="contain"
+                        />
+                      )}
+                    </div>
+                    <div className="relative h-6 w-auto min-w-[calc(24px*291/66)]">
+                      {score.plateImgSrc && (
+                        <Image
+                          src={score.plateImgSrc}
+                          alt={score.songName}
+                          layout="fill"
+                          objectFit="contain"
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
           ))}
