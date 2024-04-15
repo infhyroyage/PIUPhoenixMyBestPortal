@@ -1,6 +1,6 @@
 import ScoresTable from "@/components/ScoresTable";
 import { getScores } from "@/services/cosmos";
-import { Lv } from "@/services/types";
+import { Lv, Score } from "@/services/types";
 
 export function generateStaticParams(): { lv: Lv }[] {
   return [
@@ -17,7 +17,7 @@ export function generateStaticParams(): { lv: Lv }[] {
 }
 
 export default async function Page({ params }: { params: { lv: Lv } }) {
-  const scores = await getScores(params.lv);
+  const scores: Score[] = await getScores(params.lv);
 
   return <ScoresTable scores={scores} />;
 }
