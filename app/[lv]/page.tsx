@@ -1,4 +1,4 @@
-import ScoresTable from "@/components/ScoresTable";
+import FilterScoresTable from "@/components/FilterScoresTable";
 import { getScores } from "@/services/cosmos";
 import { Lv, Score } from "@/services/types";
 
@@ -19,5 +19,5 @@ export function generateStaticParams(): { lv: Lv }[] {
 export default async function Page({ params }: { params: { lv: Lv } }) {
   const scores: Score[] = await getScores(params.lv);
 
-  return <ScoresTable scores={scores} />;
+  return <FilterScoresTable scores={scores} />;
 }
