@@ -19,5 +19,5 @@ export function generateStaticParams(): { lv: Lv }[] {
 export default async function Page({ params }: { params: { lv: Lv } }) {
   const scores: Score[] = await getScores(params.lv);
 
-  return <FilterScoresTable scores={scores} />;
+  return <FilterScoresTable scores={scores} lv={params.lv} />;
 }
