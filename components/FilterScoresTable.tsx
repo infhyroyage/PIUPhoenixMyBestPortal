@@ -4,19 +4,19 @@ import { Score } from "@/services/types";
 export default function FilterScoresTable({ scores }: { scores: Score[] }) {
   return (
     <div className="mt-3 space-y-6">
-      <div className="mx-auto flex max-w-sm flex-row space-x-8">
+      <div className="mx-auto flex max-w-sm justify-center space-x-6 md:space-x-12">
         <div className="flex flex-col">
-          <label className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Lv.
+          <label className="mb-2 text-xs font-medium text-gray-900 dark:text-white">
+            STEP
           </label>
           <select className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
             <option selected value="-">
               -
             </option>
-            <option value="Single">Single</option>
-            <option value="Double">Double</option>
-            <option value="Single Performance">Single Performance</option>
-            <option value="Double Performance">Double Performance</option>
+            <option value="S">Single</option>
+            <option value="D">Double</option>
+            <option value="SP">Single Performance</option>
+            <option value="DP">Double Performance</option>
             <option value="CO-OPx2">CO-OPx2</option>
             <option value="CO-OPx3">CO-OPx3</option>
             <option value="CO-OPx4">CO-OPx4</option>
@@ -24,8 +24,8 @@ export default function FilterScoresTable({ scores }: { scores: Score[] }) {
           </select>
         </div>
         <div className="flex flex-col">
-          <label className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Rank
+          <label className="mb-2 text-xs font-medium text-gray-900 dark:text-white">
+            RANK
           </label>
           <select className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
             <option selected value="-">
