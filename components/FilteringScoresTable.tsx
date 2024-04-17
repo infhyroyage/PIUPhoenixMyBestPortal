@@ -18,8 +18,11 @@ export default function FilterScoresTable({
   scores: Score[];
   lv?: Lv;
 }) {
-  const [stepOption] = useState<StepOption>("-");
-  const [rankOption] = useState<RankOption>("-");
+  const [stepOption] = useState<StepOption>("-"); // TODO: Delete
+  const [rankOption] = useState<RankOption>("-"); // TODO: Delete
+  const [selectedStepValues, setSelectedStepValues] = useState<string[]>([]);
+  const [selectedRankValues, setSelectedRankValues] = useState<string[]>([]);
+  console.log({ selectedStepValues, selectedRankValues });
 
   const stepSelectorElements = useMemo<FilteringSelecterElement[]>(
     () =>
@@ -50,6 +53,7 @@ export default function FilterScoresTable({
     [lv],
   );
 
+  // TODO: Fix filtering
   const filteredScores = useMemo(() => {
     return scores.filter((score: Score) => {
       if (stepOption !== "-" && !score.stepType.startsWith(stepOption)) {
@@ -65,7 +69,12 @@ export default function FilterScoresTable({
   return (
     <div className="mt-3 space-y-6">
       <div className="mx-auto flex max-w-sm justify-center space-x-12 md:space-x-24">
-        <FilteringSelecter buttonLabel="STEP" elements={stepSelectorElements} />
+        <FilteringSelecter
+          buttonLabel="STEP"
+          elements={stepSelectorElements}
+          selectedValues={selectedStepValues}
+          setSelectedValues={setSelectedStepValues}
+        />
         <FilteringSelecter
           buttonLabel="RANK"
           elements={[
@@ -116,6 +125,8 @@ export default function FilterScoresTable({
             { value: "https://www.piugame.com/l_img/grade/d.png", label: "D" },
             { value: "https://www.piugame.com/l_img/grade/f.png", label: "F" },
           ]}
+          selectedValues={selectedRankValues}
+          setSelectedValues={setSelectedRankValues}
         />
       </div>
       <ScoresTable scores={filteredScores} />
