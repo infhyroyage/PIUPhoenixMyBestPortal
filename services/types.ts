@@ -1,3 +1,8 @@
+export type FilteringSelecterElement = {
+  label: string;
+  value: string;
+};
+
 export type Lv =
   | "20"
   | "21"

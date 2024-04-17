@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from "react";
 import ScoresTable from "./ScoresTable";
-import { Lv, RankOption, Score, StepOption } from "@/services/types";
+import {
+  FilteringSelecterElement,
+  Lv,
+  RankOption,
+  Score,
+  StepOption,
+} from "@/services/types";
 import FilteringSelecter from "./FilteringSelecter";
 
 export default function FilterScoresTable({
@@ -15,7 +21,7 @@ export default function FilterScoresTable({
   const [stepOption] = useState<StepOption>("-");
   const [rankOption] = useState<RankOption>("-");
 
-  const stepSelectorElements = useMemo(
+  const stepSelectorElements = useMemo<FilteringSelecterElement[]>(
     () =>
       !lv
         ? [
