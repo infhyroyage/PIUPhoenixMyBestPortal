@@ -2,13 +2,7 @@
 
 import { useMemo, useState } from "react";
 import ScoresTable from "./ScoresTable";
-import {
-  FilteringSelecterElement,
-  Lv,
-  RankOption,
-  Score,
-  StepOption,
-} from "@/services/types";
+import { FilteringSelecterElement, Lv, Score } from "@/services/types";
 import FilteringSelecter from "./FilteringSelecter";
 
 export default function FilterScoresTable({
@@ -18,8 +12,6 @@ export default function FilterScoresTable({
   scores: Score[];
   lv?: Lv;
 }) {
-  const [stepOption] = useState<StepOption>("-"); // TODO: Delete
-  const [rankOption] = useState<RankOption>("-"); // TODO: Delete
   const [selectedStepValues, setSelectedStepValues] = useState<string[]>([]);
   const [selectedRankValues, setSelectedRankValues] = useState<string[]>([]);
   console.log({ selectedStepValues, selectedRankValues });
@@ -56,15 +48,21 @@ export default function FilterScoresTable({
   // TODO: Fix filtering
   const filteredScores = useMemo(() => {
     return scores.filter((score: Score) => {
-      if (stepOption !== "-" && !score.stepType.startsWith(stepOption)) {
+      if (
+        selectedStepValues.length > 0 &&
+        !selectedStepValues.includes(score.stepType)
+      ) {
         return false;
       }
-      if (rankOption !== "-" && score.gradeImgSrc !== rankOption) {
+      if (
+        selectedRankValues.length > 0 &&
+        !selectedRankValues.includes(score.gradeImgSrc ?? "")
+      ) {
         return false;
       }
       return true;
     });
-  }, [scores, stepOption, rankOption]);
+  }, [scores, selectedStepValues, selectedRankValues]);
 
   return (
     <div className="mt-3 space-y-6">
