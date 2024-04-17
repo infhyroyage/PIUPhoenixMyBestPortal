@@ -1,4 +1,4 @@
-import FilterScoresTable from "@/components/FilterScoresTable";
+import FilterScoresTable from "@/components/FilteringScoresTable";
 import { getScores } from "@/services/cosmos";
 import { Lv, Score } from "@/services/types";
 
