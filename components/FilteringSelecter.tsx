@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -49,10 +50,14 @@ export default function FilteringSelecter({
     };
   }, []);
 
+  const color: "blue" | "green" = useMemo(() => {
+    return selectedValues.length > 0 ? "green" : "blue";
+  }, [selectedValues]);
+
   return (
     <div className="flex flex-col" ref={divRef}>
       <button
-        className="inline-flex items-center rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className={`inline-flex items-center rounded-lg bg-${color}-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-${color}-800 focus:outline-none focus:ring-4 focus:ring-${color}-300 dark:bg-${color}-600 dark:hover:bg-${color}-700 dark:focus:ring-${color}-800`}
         type="button"
         onClick={() => setOpen(!open)}
       >
@@ -86,7 +91,7 @@ export default function FilteringSelecter({
                     type="checkbox"
                     checked={selectedValues.includes(element.value)}
                     value={element.value}
-                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
+                    className={`h-4 w-4 rounded border-gray-300 bg-gray-100 text-${color}-600 focus:ring-2 focus:ring-${color}-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-${color}-600 dark:focus:ring-offset-gray-700`}
                     onChange={() => handleSelectElement(element)}
                   />
                   <label className="ml-2 w-full rounded text-sm font-medium text-gray-900 dark:text-gray-300">
