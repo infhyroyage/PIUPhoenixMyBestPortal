@@ -45,12 +45,13 @@ export default function FilterScoresTable({
     [lv],
   );
 
-  // TODO: Fix filtering
-  const filteredScores = useMemo(() => {
+  const filteredScores: Score[] = useMemo(() => {
     return scores.filter((score: Score) => {
       if (
         selectedStepValues.length > 0 &&
-        !selectedStepValues.includes(score.stepType)
+        !selectedStepValues.find((value: string) =>
+          score.stepType.startsWith(value),
+        )
       ) {
         return false;
       }
