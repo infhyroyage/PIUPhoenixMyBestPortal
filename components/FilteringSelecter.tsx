@@ -83,6 +83,13 @@ export default function FilteringSelecter({
             <button
               type="button"
               className="me-2 inline-flex items-center rounded-full bg-green-700 p-2.5 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              onClick={() =>
+                setSelectedValues(
+                  elements.map(
+                    (element: FilteringSelecterElement) => element.value,
+                  ),
+                )
+              }
             >
               <svg
                 className="h-6 w-6 text-gray-800 dark:text-white"
@@ -105,6 +112,7 @@ export default function FilteringSelecter({
             <button
               type="button"
               className="me-2 inline-flex items-center rounded-full bg-red-700 p-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+              onClick={() => setSelectedValues([])}
             >
               <svg
                 className="h-6 w-6 text-gray-800 dark:text-white"
