@@ -14,7 +14,6 @@ export default function FilterScoresTable({
 }) {
   const [selectedStepValues, setSelectedStepValues] = useState<string[]>([]);
   const [selectedRankValues, setSelectedRankValues] = useState<string[]>([]);
-  console.log({ selectedStepValues, selectedRankValues });
 
   const stepSelectorElements = useMemo<FilteringSelecterElement[]>(
     () =>
