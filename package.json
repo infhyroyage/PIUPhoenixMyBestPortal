@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "fetch": "NODE_ENV=production tsx fetcher/index.ts",
+    "fetch:dev": "rm -rf imgs;NODE_ENV=development tsx fetcher/index.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "serve out",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
