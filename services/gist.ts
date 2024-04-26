@@ -1,14 +1,18 @@
 import { Octokit } from "octokit";
-import { GistInfo } from "./types";
+import { GistInfo, Lv } from "./types";
 import { OctokitResponse } from "@octokit/types";
 
 /**
  * List PIUPhoenixMyBestPortal Gists
  * @param {string} githubToken Github Access Token
+ * @param {Lv} [lv] Query Parameter "lv"
  * @returns {GistInfo[]} PIUPhoenixMyBestPortal Gists
- * @see https://docs.github.com/ja/rest/gists/gists?apiVersion=2022-11-28#list-gists-for-the-authenticated-user
+ * @see https://docs.github.com/ja/rest/gists/gists?apiVersion=2022-111-28#list-gists-for-the-authenticated-user
  */
-export async function listGistInfo(githubToken: string): Promise<GistInfo[]> {
+export async function listGistInfo(
+  githubToken: string,
+  lv?: Lv,
+): Promise<GistInfo[]> {
   const octokit = new Octokit({
     auth: githubToken,
   });
@@ -37,7 +41,16 @@ export async function listGistInfo(githubToken: string): Promise<GistInfo[]> {
   });
 
   // Filter PIUPhoenixMyBestPortal Gists
-  return res.data.filter(
-    (gist: GistInfo) => gist.description === "PIUPhoenixMyBestPortal",
-  );
+  return res.data.filter((gist: GistInfo) => {
+    if (lv) {
+      const jsonFileName: string = `${lv}.json`;
+      return (
+        gist.description === "PIUPhoenixMyBestPortal" &&
+        gist.files[jsonFileName] &&
+        gist.files[jsonFileName].filename === jsonFileName
+      );
+    } else {
+      return gist.description === "PIUPhoenixMyBestPortal";
+    }
+  });
 }
