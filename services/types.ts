@@ -3,6 +3,17 @@ export type FilteringSelecterElement = {
   value: string;
 };
 
+export type GistInfo = {
+  id: string;
+  files: {
+    [key: string]: {
+      filename?: string;
+      raw_url?: string;
+    };
+  };
+  description?: string | null;
+};
+
 /**
  * Query Parameters "lv" of "Over Lv.20 Ranking" and "My Best Score"
  */

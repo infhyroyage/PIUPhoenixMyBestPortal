@@ -1,12 +1,13 @@
-import { Lv, MyBest, Score, Step } from "../services/types";
+import { Octokit } from "octokit";
+import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
 
 /**
- * Create Items of json file in Gist
+ * Create Gist Content
  * @param {Step[]} steps Fetched All Steps
  * @param {MyBest[]} myBests Fetched All My Best Scores
- * @returns {Score[]} All Items of json file in Gist
+ * @returns {Score[]} Gist Content
  */
-export function createScores(steps: Step[], myBests: MyBest[]): Score[] {
+export function createGistContent(steps: Step[], myBests: MyBest[]): Score[] {
   return steps.map((step: Step) => {
     const foundMyBest: MyBest | undefined = myBests.find(
       (myBest: MyBest) =>
@@ -26,18 +27,56 @@ export function createScores(steps: Step[], myBests: MyBest[]): Score[] {
 }
 
 /**
- * Update json file in Gist
- * @param {Score[]} scores All Items of json file in Gist
+ * Upsert PIUPhoenixMyBestPortal Gist
+ * @param {Score[]} scores Gist Content
  * @param {Lv} lv Query Parameter "lv"
- * @param {string} githubRepositoryOwner Github Repository Owner's Name
+ * @param {GistInfo[]} gistInfoList PIUPhoenixMyBestPortal Gists
  * @param {string} githubToken GutHub Access Token
  */
-export async function upsertScores(
+export async function upsertGist(
   scores: Score[],
   lv: Lv,
-  githubRepositoryOwner: string,
+  gistInfoList: GistInfo[],
   githubToken: string,
 ): Promise<void> {
-  // TODO
-  console.log({ scores, lv, githubRepositoryOwner, githubToken });
+  // Check if PIUPhoenixMyBestPortal Gist is already created
+  const jsonFileName: string = `${lv}.json`;
+  const foundGist: GistInfo | undefined = gistInfoList.find(
+    (gistInfo: GistInfo) =>
+      gistInfo.files[jsonFileName] &&
+      gistInfo.files[jsonFileName].filename === jsonFileName,
+  );
+
+  const octokit = new Octokit({
+    auth: githubToken,
+  });
+  if (foundGist) {
+    // Update PIUPhoenixMyBestPortal Gist
+    await octokit.request("PATCH /gists/{gist_id}", {
+      description: "PIUPhoenixMyBestPortal",
+      files: {
+        [jsonFileName]: {
+          content: JSON.stringify(scores),
+        },
+      },
+      gist_id: foundGist.id,
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
+  } else {
+    // Create PIUPhoenixMyBestPortal Gist
+    await octokit.request("POST /gists", {
+      description: "PIUPhoenixMyBestPortal",
+      files: {
+        [jsonFileName]: {
+          content: JSON.stringify(scores),
+        },
+      },
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+      public: true,
+    });
+  }
 }

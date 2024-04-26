@@ -1,8 +1,9 @@
 import { config } from "dotenv";
 import { Browser, BrowserContext, Page, chromium } from "playwright-chromium";
 import { fetchMyBests, fetchSteps } from "./fetcher";
-import { Lv, MyBest, Score, Step } from "../services/types";
-import { createScores, upsertScores } from "./gist";
+import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
+import { listGistInfo } from "../services/gist";
+import { createGistContent, upsertGist } from "./gist";
 
 /**
  * All Query Parameters "lv" of "Over Lv.20 Ranking" and "My Best Score"
@@ -26,10 +27,6 @@ export async function run() {
   config();
 
   // Validation Check
-  if (!process.env.GITHUB_REPOSITORY_OWNER) {
-    throw new Error("GITHUB_REPOSITORY_OWNER is not set.");
-  }
-  const githubRepositoryOwner: string = process.env.GITHUB_REPOSITORY_OWNER;
   if (!process.env.GITHUB_TOKEN) {
     throw new Error("GITHUB_TOKEN is not set.");
   }
@@ -48,6 +45,9 @@ export async function run() {
   // const playerName: string = process.env.PLAYER_NAME;
 
   const startTime: number = Date.now();
+
+  // List PIUPhoenixMyBestPortal Gists
+  const gistInfoList: GistInfo[] = await listGistInfo(githubToken);
 
   // Initialize Playwright Page
   const browser: Browser = await chromium.launch();
@@ -74,14 +74,14 @@ export async function run() {
       // Fetch All My Best Scores
       const myBests: MyBest[] = await fetchMyBests(page, lv);
 
-      // Create Cosmos DB Item Data
-      const scores: Score[] = createScores(steps, myBests);
+      // Create Gist Content
+      const scores: Score[] = createGistContent(steps, myBests);
       if (process.env.NODE_ENV === "development") {
         console.log(JSON.stringify(scores, null, 2));
       }
 
-      // Upsert into Gist
-      await upsertScores(scores, lv, githubRepositoryOwner, githubToken);
+      // Upsert Gist
+      await upsertGist(scores, lv, gistInfoList, githubToken);
     }
   } finally {
     await browser.close();
