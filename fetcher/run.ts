@@ -2,7 +2,8 @@ import { config } from "dotenv";
 import { Browser, BrowserContext, Page, chromium } from "playwright-chromium";
 import { fetchMyBests, fetchSteps } from "./fetcher";
 import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
-import { createGistContent, listGistInfo, upsertGist } from "./gist";
+import { listGistInfo } from "../services/gist";
+import { createGistContent, upsertGist } from "./gist";
 
 /**
  * All Query Parameters "lv" of "Over Lv.20 Ranking" and "My Best Score"
