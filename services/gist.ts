@@ -43,11 +43,11 @@ export async function listGistInfo(
   // Filter PIUPhoenixMyBestPortal Gists
   return res.data.filter((gist: GistInfo) => {
     if (lv) {
-      const jsonFileName: string = `${lv}.json`;
+      const filename: string = `${lv}.json`;
       return (
         gist.description === "PIUPhoenixMyBestPortal" &&
-        gist.files[jsonFileName] &&
-        gist.files[jsonFileName].filename === jsonFileName
+        gist.files[filename] &&
+        gist.files[filename].filename === filename
       );
     } else {
       return gist.description === "PIUPhoenixMyBestPortal";

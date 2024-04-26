@@ -40,11 +40,11 @@ export async function upsertGist(
   githubToken: string,
 ): Promise<void> {
   // Check if PIUPhoenixMyBestPortal Gist is already created
-  const jsonFileName: string = `${lv}.json`;
+  const filename: string = `${lv}.json`;
   const foundGist: GistInfo | undefined = gistInfoList.find(
     (gistInfo: GistInfo) =>
-      gistInfo.files[jsonFileName] &&
-      gistInfo.files[jsonFileName].filename === jsonFileName,
+      gistInfo.files[filename] &&
+      gistInfo.files[filename].filename === filename,
   );
 
   const octokit = new Octokit({
@@ -55,8 +55,9 @@ export async function upsertGist(
     await octokit.request("PATCH /gists/{gist_id}", {
       description: "PIUPhoenixMyBestPortal",
       files: {
-        [jsonFileName]: {
+        [filename]: {
           content: JSON.stringify(scores),
+          filename,
         },
       },
       gist_id: foundGist.id,
@@ -69,7 +70,7 @@ export async function upsertGist(
     await octokit.request("POST /gists", {
       description: "PIUPhoenixMyBestPortal",
       files: {
-        [jsonFileName]: {
+        [filename]: {
           content: JSON.stringify(scores),
         },
       },
