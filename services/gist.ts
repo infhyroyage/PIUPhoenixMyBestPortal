@@ -1,6 +1,4 @@
-import { Octokit } from "octokit";
 import { GistInfo, Lv } from "./types";
-import { OctokitResponse } from "@octokit/types";
 
 /**
  * List PIUPhoenixMyBestPortal Gists
@@ -13,44 +11,28 @@ export async function listGistInfo(
   githubToken: string,
   lv?: Lv,
 ): Promise<GistInfo[]> {
-  const octokit = new Octokit({
-    auth: githubToken,
-  });
-
   // List All Gists
   // TODO: Pagination
   // https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api?apiVersion=2022-11-28
-  const res: OctokitResponse<GistInfo[]> = await octokit.request("GET /gists", {
-    headers: {
-      "X-GitHub-Api-Version": "2022-11-28",
+  const res: Response = await fetch(
+    "https://api.github.com/gists?per_page=100",
+    {
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${githubToken}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
     },
-    per_page: 100,
-    graphql_query: `query {
-    viewer {
-      gists(first: 100) {
-        nodes {
-          id
-          files {
-            filename
-            raw_url
-          }
-        }
-      }
-    }
-    }`,
-  });
+  );
 
   // Filter PIUPhoenixMyBestPortal Gists
-  return res.data.filter((gist: GistInfo) => {
+  return ((await res.json()) as GistInfo[]).filter((gist: GistInfo) => {
+    if (gist.description !== "PIUPhoenixMyBestPortal") return false;
     if (lv) {
       const filename: string = `${lv}.json`;
-      return (
-        gist.description === "PIUPhoenixMyBestPortal" &&
-        gist.files[filename] &&
-        gist.files[filename].filename === filename
-      );
+      return gist.files[filename]?.filename === filename;
     } else {
-      return gist.description === "PIUPhoenixMyBestPortal";
+      return true;
     }
   });
 }
