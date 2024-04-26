@@ -1,0 +1,36 @@
+name: Fetch Pump It Up Phoenix All Scores over Lv.20
+
+on:
+  schedule:
+    - cron: "0 22 * * *"
+
+env:
+  NODE_VERSION: "20.10.0"
+  PIU_PHOENIX_EMAIL: ${{ vars.PIU_PHOENIX_EMAIL }}
+  PIU_PHOENIX_PASSWORD: ${{ secrets.PIU_PHOENIX_PASSWORD }}
+
+jobs:
+  fetch-scores:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Node ${{ env.NODE_VERSION }} Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-piuphoenixmybestportal-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: ${{ runner.os }}-piuphoenixmybestportal-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch Scores
+        run: npm run fetch
