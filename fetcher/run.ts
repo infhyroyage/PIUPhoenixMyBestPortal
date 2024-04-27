@@ -39,6 +39,7 @@ export async function run() {
     throw new Error("PIU_PHOENIX_PASSWORD is not set.");
   }
   const piuPhoenixPassword: string = process.env.PIU_PHOENIX_PASSWORD;
+  // TODO: Switch to PLAYER_NAME
   // if (!process.env.PLAYER_NAME) {
   //   throw new Error("PLAYER_NAME is not set.");
   // }
