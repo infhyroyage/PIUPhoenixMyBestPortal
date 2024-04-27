@@ -1,5 +1,5 @@
 import FilterScoresTable from "@/components/FilteringScoresTable";
-import { getScores } from "@/services/cosmos";
+import { getScores } from "@/services/gist";
 import { Lv, Score } from "@/services/types";
 
 export function generateStaticParams(): { lv: Lv }[] {

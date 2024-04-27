@@ -1,11 +1,11 @@
-import { GistInfo, Lv } from "./types";
+import { GistInfo, Lv, Score } from "./types";
 
 /**
  * List PIUPhoenixMyBestPortal Gists
  * @param {string} gistPat GutHub Personal Access Token to Read and Write Gists
  * @param {Lv} [lv] Query Parameter "lv"
  * @returns {GistInfo[]} PIUPhoenixMyBestPortal Gists
- * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-111-28#list-gists-for-the-authenticated-user
+ * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#list-gists-for-the-authenticated-user
  */
 export async function listGistInfo(
   gistPat: string,
@@ -35,4 +35,42 @@ export async function listGistInfo(
       return true;
     }
   });
+}
+
+/**
+ * Get Scores from PIUPhoenixMyBestPortal Gists
+ * @param {Lv} [lv] Query Parameter "lv"
+ * @returns {Score[]} Scores
+ */
+export async function getScores(lv?: Lv): Promise<Score[]> {
+  // Validation Check
+  if (!process.env.GIST_PAT) {
+    console.log("GIST_PAT is not set.");
+    return [];
+  }
+
+  // List PIUPhoenixMyBestPortal Gists with Query Parameter "lv"
+  const gistInfoList: GistInfo[] = await listGistInfo(process.env.GIST_PAT, lv);
+  if (!lv) {
+    // Sort Gists by filename
+    gistInfoList.sort((a, b) => {
+      const aFilename = Object.values(a.files)[0]?.filename;
+      const bFilename = Object.values(b.files)[0]?.filename;
+      return aFilename?.localeCompare(bFilename ?? "") ?? 0;
+    });
+  }
+
+  // Get Each Gist Content from "raw_url" and Merge
+  const scores: Score[] = [];
+  for (const gistInfo of gistInfoList) {
+    const fileKeys = Object.keys(gistInfo.files);
+    if (fileKeys.length !== 1) continue;
+    const rawUrl: string | undefined = gistInfo.files[fileKeys[0]]?.raw_url;
+    if (!rawUrl) continue;
+
+    const res: Response = await fetch(rawUrl);
+    const scrs: Score[] = await res.json();
+    scores.push(...scrs);
+  }
+  return scores;
 }
