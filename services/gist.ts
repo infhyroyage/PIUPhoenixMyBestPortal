@@ -24,9 +24,11 @@ export async function listGistInfo(
       },
     },
   );
+  const allGistInfoList: GistInfo[] = await res.json();
+  console.log({ allGistInfoList });
 
   // Filter PIUPhoenixMyBestPortal Gists
-  return ((await res.json()) as GistInfo[]).filter((gist: GistInfo) => {
+  return allGistInfoList.filter((gist: GistInfo) => {
     if (gist.description !== "PIUPhoenixMyBestPortal") return false;
     if (lv) {
       const filename: string = `${lv}.json`;
