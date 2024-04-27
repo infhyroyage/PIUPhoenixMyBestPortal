@@ -3,11 +3,13 @@ name: Fetch Pump It Up Phoenix All Scores over Lv.20
 on:
   schedule:
     - cron: "0 22 * * *"
+  workflow_dispatch:
 
 env:
   NODE_VERSION: "20.10.0"
   PIU_PHOENIX_EMAIL: ${{ vars.PIU_PHOENIX_EMAIL }}
   PIU_PHOENIX_PASSWORD: ${{ secrets.PIU_PHOENIX_PASSWORD }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   fetch-scores:
