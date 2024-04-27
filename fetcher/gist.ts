@@ -32,6 +32,8 @@ export function createGistContent(steps: Step[], myBests: MyBest[]): Score[] {
  * @param {GistInfo[]} gistInfoList PIUPhoenixMyBestPortal Gists
  * @param {string} gistPat GutHub Personal Access Token to Read and Write Gists
  * @returns {Promise<void>}
+ * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#create-a-gist
+ * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#update-a-gist
  */
 export async function upsertGist(
   scores: Score[],

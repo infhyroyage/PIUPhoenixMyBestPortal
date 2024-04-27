@@ -1,8 +1,15 @@
+/**
+ * Element of FilteringSelecter
+ */
 export type FilteringSelecterElement = {
   label: string;
   value: string;
 };
 
+/**
+ * Extracted Gist Information by [GET] /gist
+ * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#list-gists-for-the-authenticated-user
+ */
 export type GistInfo = {
   id: string;
   files: {
