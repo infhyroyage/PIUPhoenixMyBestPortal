@@ -30,14 +30,14 @@ export function createGistContent(steps: Step[], myBests: MyBest[]): Score[] {
  * @param {Score[]} scores Gist Content
  * @param {Lv} lv Query Parameter "lv"
  * @param {GistInfo[]} gistInfoList PIUPhoenixMyBestPortal Gists
- * @param {string} githubToken GutHub Access Token
+ * @param {string} gistPat GutHub Personal Access Token to Read and Write Gists
  * @returns {Promise<void>}
  */
 export async function upsertGist(
   scores: Score[],
   lv: Lv,
   gistInfoList: GistInfo[],
-  githubToken: string,
+  gistPat: string,
 ): Promise<void> {
   // Check if PIUPhoenixMyBestPortal Gist is already created
   const filename: string = `${lv}.json`;
@@ -61,7 +61,7 @@ export async function upsertGist(
       }),
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${githubToken}`,
+        Authorization: `Bearer ${gistPat}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
       method: "PATCH",
@@ -80,7 +80,7 @@ export async function upsertGist(
       }),
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${githubToken}`,
+        Authorization: `Bearer ${gistPat}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
       method: "POST",

@@ -5,14 +5,11 @@ on:
     - cron: "0 22 * * *"
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 env:
   NODE_VERSION: "20.10.0"
   PIU_PHOENIX_EMAIL: ${{ vars.PIU_PHOENIX_EMAIL }}
   PIU_PHOENIX_PASSWORD: ${{ secrets.PIU_PHOENIX_PASSWORD }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GIST_PAT: ${{ secrets.GIST_PAT }}
 
 jobs:
   fetch-scores:

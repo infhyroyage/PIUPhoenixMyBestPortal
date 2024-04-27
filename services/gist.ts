@@ -2,13 +2,13 @@ import { GistInfo, Lv } from "./types";
 
 /**
  * List PIUPhoenixMyBestPortal Gists
- * @param {string} githubToken Github Access Token
+ * @param {string} gistPat GutHub Personal Access Token to Read and Write Gists
  * @param {Lv} [lv] Query Parameter "lv"
  * @returns {GistInfo[]} PIUPhoenixMyBestPortal Gists
- * @see https://docs.github.com/ja/rest/gists/gists?apiVersion=2022-111-28#list-gists-for-the-authenticated-user
+ * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-111-28#list-gists-for-the-authenticated-user
  */
 export async function listGistInfo(
-  githubToken: string,
+  gistPat: string,
   lv?: Lv,
 ): Promise<GistInfo[]> {
   // List All Gists
@@ -19,16 +19,14 @@ export async function listGistInfo(
     {
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${githubToken}`,
+        Authorization: `Bearer ${gistPat}`,
         "X-GitHub-Api-Version": "2022-11-28",
       },
     },
   );
-  const allGistInfoList: GistInfo[] = await res.json();
-  console.log({ allGistInfoList });
 
   // Filter PIUPhoenixMyBestPortal Gists
-  return allGistInfoList.filter((gist: GistInfo) => {
+  return (await res.json()).filter((gist: GistInfo) => {
     if (gist.description !== "PIUPhoenixMyBestPortal") return false;
     if (lv) {
       const filename: string = `${lv}.json`;

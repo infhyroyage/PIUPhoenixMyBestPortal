@@ -27,10 +27,10 @@ export async function run() {
   config();
 
   // Validation Check
-  if (!process.env.GITHUB_TOKEN) {
-    throw new Error("GITHUB_TOKEN is not set.");
+  if (!process.env.GIST_PAT) {
+    throw new Error("GIST_PAT is not set.");
   }
-  const githubToken: string = process.env.GITHUB_TOKEN;
+  const gistPat: string = process.env.GIST_PAT;
   if (!process.env.PIU_PHOENIX_EMAIL) {
     throw new Error("PIU_PHOENIX_EMAIL is not set.");
   }
@@ -47,7 +47,7 @@ export async function run() {
   const startTime: number = Date.now();
 
   // List PIUPhoenixMyBestPortal Gists
-  const gistInfoList: GistInfo[] = await listGistInfo(githubToken);
+  const gistInfoList: GistInfo[] = await listGistInfo(gistPat);
 
   // Initialize Playwright Page
   const browser: Browser = await chromium.launch();
@@ -81,7 +81,7 @@ export async function run() {
       }
 
       // Upsert Gist
-      await upsertGist(scores, lv, gistInfoList, githubToken);
+      await upsertGist(scores, lv, gistInfoList, gistPat);
     }
   } finally {
     await browser.close();
