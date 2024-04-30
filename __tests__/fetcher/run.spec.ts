@@ -7,9 +7,9 @@ import { run } from "../../fetcher/run";
 
 vi.mock("dotenv");
 vi.mock("playwright-chromium");
-vi.mock("../fetcher/scrape");
-vi.mock("../fetcher/gist");
-vi.mock("../services/gist");
+vi.mock("../../fetcher/scrape");
+vi.mock("../../fetcher/gist");
+vi.mock("../../services/gist");
 
 const mockNewContext = vi.fn();
 const mockNewPage = vi.fn();
