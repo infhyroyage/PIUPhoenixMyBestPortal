@@ -115,7 +115,7 @@ describe("upsertGist", () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
-    mockFetch.mockResolvedValue(new Response(JSON.stringify({})));
+    mockFetch.mockResolvedValueOnce(new Response(JSON.stringify({})));
   });
 
   it("Should create PIUPhoenixMyBestPortal gist if not found", async () => {
