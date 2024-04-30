@@ -1,6 +1,6 @@
 import { Page } from "playwright-chromium";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchMyBests, fetchSteps } from "../fetcher/fetcher";
+import { fetchMyBests, fetchSteps } from "../../fetcher/scrape";
 
 const mockGoto = vi.fn();
 const mock$ = vi.fn();

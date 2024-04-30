@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { Browser, BrowserContext, Page, chromium } from "playwright-chromium";
-import { fetchMyBests, fetchSteps } from "./fetcher";
+import { fetchMyBests, fetchSteps } from "./scrape";
 import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
 import { listGistInfo } from "../services/gist";
 import { createGistContent, upsertGist } from "./gist";
