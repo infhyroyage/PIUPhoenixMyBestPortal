@@ -68,13 +68,15 @@ export async function getScores(lv?: Lv): Promise<Score[]> {
   }
 
   // List PIUPhoenixMyBestPortal Gists with Query Parameter "lv"
-  const gistInfoList: GistInfo[] = await listGistInfo(process.env.GIST_PAT, lv);
+  let gistInfoList: GistInfo[] = await listGistInfo(process.env.GIST_PAT, lv);
   if (!lv) {
     // Sort Gists by filename
-    gistInfoList.sort((a, b) => {
-      const aFilename = Object.values(a.files)[0]?.filename;
-      const bFilename = Object.values(b.files)[0]?.filename;
-      return aFilename?.localeCompare(bFilename ?? "") ?? 0;
+    gistInfoList = gistInfoList.sort((a, b) => {
+      const aFiles = Object.keys(a.files);
+      const aFilename = aFiles.length ? a.files[aFiles[0]].filename || "" : "";
+      const bFiles = Object.keys(b.files);
+      const bFilename = bFiles.length ? b.files[bFiles[0]].filename || "" : "";
+      return aFilename.localeCompare(bFilename);
     });
   }
 
