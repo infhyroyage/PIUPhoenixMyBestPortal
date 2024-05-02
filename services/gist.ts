@@ -48,7 +48,8 @@ export async function listGistInfo(
     if (gist.description !== "PIUPhoenixMyBestPortal") return false;
     if (lv) {
       const filename: string = `${lv}.json`;
-      return gist.files[filename]?.filename === filename;
+      const files = gist.files[filename];
+      return files && files.filename === filename;
     } else {
       return true;
     }

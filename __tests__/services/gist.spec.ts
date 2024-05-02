@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getScores } from "../../services/gist";
+import { getScores, listGistInfo } from "../../services/gist";
 import { GistInfo, Score } from "../../services/types";
 
 vi.mock("dotenv");
@@ -7,6 +7,177 @@ const mockFetch = vi.spyOn(global, "fetch");
 
 beforeEach(() => {
   vi.resetAllMocks();
+});
+
+describe("listGistInfo", () => {
+  it("Should get next PIUPhoenixMyBestPortal Lv.20 gists correctly", async () => {
+    const mockGistInfoList1st: GistInfo[] = [
+      {
+        id: "1st",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+    ];
+    const mockGistInfoList2nd: GistInfo[] = [
+      {
+        id: "2nd",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+    ];
+    mockFetch
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(mockGistInfoList1st), {
+          headers: {
+            Link: '<https://api.github.com/gists?page=2>; rel="next"',
+          },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(mockGistInfoList2nd), {
+          headers: {
+            Link: "invalidLinkHeader",
+          },
+        }),
+      );
+
+    const result = await listGistInfo("GIST_PAT", "20");
+    expect(result).toEqual([
+      {
+        id: "1st",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
+        id: "2nd",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+    ]);
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      1,
+      "https://api.github.com/gists",
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: "Bearer GIST_PAT",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      },
+    );
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      2,
+      "https://api.github.com/gists?page=2",
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: "Bearer GIST_PAT",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      },
+    );
+  });
+
+  it("Should filter PIUPhoenixMyBestPortal Lv.20 gists correctly", async () => {
+    const mockGistInfoList: GistInfo[] = [
+      {
+        id: "valid",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
+        id: "invalidDescription",
+        files: { "20.json": { filename: "20.json" } },
+        description: "invalidDescription",
+      },
+      {
+        id: "invalidFiles",
+        files: { "21.json": { filename: "21.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
+        id: "invalidFilename",
+        files: { "21.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+    ];
+    mockFetch.mockResolvedValueOnce(
+      new Response(JSON.stringify(mockGistInfoList)),
+    );
+
+    const result = await listGistInfo("GIST_PAT", "20");
+    expect(result).toEqual([
+      {
+        id: "valid",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+    ]);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      1,
+      "https://api.github.com/gists",
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: "Bearer GIST_PAT",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      },
+    );
+  });
+
+  it("Should filter PIUPhoenixMyBestPortal mixed level gists correctly", async () => {
+    const mockGistInfoList: GistInfo[] = [
+      {
+        id: "20",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
+        id: "coop",
+        files: { "coop.json": { filename: "coop.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
+        id: "invalidDescription",
+        files: {
+          "invalidDescription.json": { filename: "invalidDescription.json" },
+        },
+        description: "invalidDescription",
+      },
+    ];
+    mockFetch.mockResolvedValueOnce(
+      new Response(JSON.stringify(mockGistInfoList)),
+    );
+
+    const result = await listGistInfo("GIST_PAT");
+    expect(result).toEqual([
+      {
+        id: "20",
+        files: { "20.json": { filename: "20.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
+        id: "coop",
+        files: { "coop.json": { filename: "coop.json" } },
+        description: "PIUPhoenixMyBestPortal",
+      },
+    ]);
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      1,
+      "https://api.github.com/gists",
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: "Bearer GIST_PAT",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      },
+    );
+  });
 });
 
 describe("getScores", () => {
@@ -36,7 +207,7 @@ describe("getScores", () => {
       },
       {
         id: "invalid2",
-        files: { "invalid2.json": { filename: "invalid2.json" } },
+        files: { "20.json": { filename: "20.json" } },
         description: "PIUPhoenixMyBestPortal",
       },
     ];
@@ -79,6 +250,16 @@ describe("getScores", () => {
   it("Should return valid mixed level scores", async () => {
     const mockGistInfoList: GistInfo[] = [
       {
+        id: "invalid1",
+        files: { "invalid1.json": {} },
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
+        id: "invalid2",
+        files: {},
+        description: "PIUPhoenixMyBestPortal",
+      },
+      {
         id: "coop",
         files: {
           "coop.json": { filename: "coop.json", raw_url: "raw_url_coop" },
@@ -86,8 +267,8 @@ describe("getScores", () => {
         description: "PIUPhoenixMyBestPortal",
       },
       {
-        id: "invalid",
-        files: {},
+        id: "invalid3",
+        files: { "invalid3.json": {} },
         description: "PIUPhoenixMyBestPortal",
       },
       {
