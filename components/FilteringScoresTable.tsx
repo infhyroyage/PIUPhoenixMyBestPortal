@@ -1,8 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import ScoresTable from "./ScoresTable";
+import {
+  createFilteredScores,
+  createStepSelectorElements,
+} from "@/services/filtering";
 import { FilteringSelecterElement, Lv, Score } from "@/services/types";
+import ScoresTable from "./ScoresTable";
 import FilteringSelecter from "./FilteringSelecter";
 
 export default function FilterScoresTable({
@@ -16,53 +20,13 @@ export default function FilterScoresTable({
   const [selectedRankValues, setSelectedRankValues] = useState<string[]>([]);
 
   const stepSelectorElements = useMemo<FilteringSelecterElement[]>(
-    () =>
-      !lv
-        ? [
-            { label: "Single", value: "S" },
-            { label: "Double", value: "D" },
-            { label: "Single Performance", value: "SP" },
-            { label: "Double Performance", value: "DP" },
-            { label: "CO-OPx2", value: "CO-OPx2" },
-            { label: "CO-OPx3", value: "CO-OPx3" },
-            { label: "CO-OPx4", value: "CO-OPx4" },
-            { label: "CO-OPx5", value: "CO-OPx5" },
-          ]
-        : lv === "coop"
-          ? [
-              { label: "CO-OPx2", value: "CO-OPx2" },
-              { label: "CO-OPx3", value: "CO-OPx3" },
-              { label: "CO-OPx4", value: "CO-OPx4" },
-              { label: "CO-OPx5", value: "CO-OPx5" },
-            ]
-          : [
-              { label: "Single", value: "S" },
-              { label: "Double", value: "D" },
-              { label: "Single Performance", value: "SP" },
-              { label: "Double Performance", value: "DP" },
-            ],
+    () => createStepSelectorElements(lv),
     [lv],
   );
-
-  const filteredScores: Score[] = useMemo(() => {
-    return scores.filter((score: Score) => {
-      if (
-        selectedStepValues.length > 0 &&
-        !selectedStepValues.find((value: string) =>
-          score.stepType.startsWith(value),
-        )
-      ) {
-        return false;
-      }
-      if (
-        selectedRankValues.length > 0 &&
-        !selectedRankValues.includes(score.gradeImgSrc ?? "")
-      ) {
-        return false;
-      }
-      return true;
-    });
-  }, [scores, selectedStepValues, selectedRankValues]);
+  const filteredScores: Score[] = useMemo(
+    () => createFilteredScores(scores, selectedStepValues, selectedRankValues),
+    [scores, selectedStepValues, selectedRankValues],
+  );
 
   return (
     <div className="mt-3 space-y-6">
