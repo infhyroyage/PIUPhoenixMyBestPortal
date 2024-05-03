@@ -45,5 +45,6 @@ jobs:
 
   use-build-deploy-pages:
     uses: ./.github/workflows/reusable-build-deploy-pages.yaml
+    needs: fetch
     secrets:
       GIST_PAT: ${{ secrets.GIST_PAT }}
