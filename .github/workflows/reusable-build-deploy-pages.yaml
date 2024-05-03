@@ -63,6 +63,8 @@ jobs:
 
       - name: Build Artifact
         run: npm run build
+        env:
+          GIST_PAT: ${{ secrets.GIST_PAT }}
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
