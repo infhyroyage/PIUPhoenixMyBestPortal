@@ -20,6 +20,11 @@ on:
       - tsconfig.json
       - vitest.config.js
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   use-build-deploy-pages:
     uses: ./.github/workflows/reusable-build-deploy-pages.yaml
