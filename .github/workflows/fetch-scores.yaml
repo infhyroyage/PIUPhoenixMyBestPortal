@@ -1,7 +1,6 @@
 name: Fetch Pump It Up Phoenix My Best Scores
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: "0 23 * * *"
 
