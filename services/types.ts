@@ -1,8 +1,15 @@
 /**
- * Element of FilteringSelecter
+ * Input Elements in FilteringSelecter
  */
 export type FilteringSelecterElement = {
+  /**
+   * Label of Input Element
+   */
   label: string;
+
+  /**
+   * Value of Input Element
+   */
   value: string;
 };
 
