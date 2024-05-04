@@ -1,16 +1,23 @@
 import { Page } from "playwright-chromium";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchMyBests, fetchSteps, login } from "../../fetcher/scrape";
+import {
+  fetchMyBests,
+  fetchSteps,
+  login,
+  switchPlayer,
+} from "../../fetcher/scrape";
 
 const mockGoto = vi.fn();
 const mockFill = vi.fn();
 const mockClick = vi.fn();
+const mockWaitForTimeout = vi.fn();
 const mock$ = vi.fn();
 const mockScreenshot = vi.fn();
 const mockPage = {
   goto: mockGoto,
   fill: mockFill,
   click: mockClick,
+  waitForTimeout: mockWaitForTimeout,
   $: mock$,
   screenshot: mockScreenshot,
 } as unknown as Page;
@@ -74,6 +81,83 @@ describe("login", () => {
   it("Should return undefined if login successfully", async () => {
     const result = await login(mockPage, "email", "password");
     expect(result).toBeUndefined();
+  });
+});
+
+describe("switchPlayer", () => {
+  it('Should throw Error if failed to access "My Best Score"', async () => {
+    mockGoto.mockRejectedValueOnce(
+      new Error('Failed to access "My Best Score".'),
+    );
+
+    await expect(switchPlayer(mockPage, "playerName")).rejects.toThrow(
+      'Failed to access "My Best Score".',
+    );
+    expect(mockGoto).toHaveBeenNthCalledWith(
+      1,
+      "https://www.piugame.com/my_page/my_best_score.php",
+    );
+  });
+
+  it("Should throw Error if failed to click 'Switch Account' button", async () => {
+    mockClick.mockRejectedValue(
+      new Error('Failed to click "Switch Account" button.'),
+    );
+
+    await expect(switchPlayer(mockPage, "playerName")).rejects.toThrow(
+      'Failed to click "Switch Account" button.',
+    );
+    expect(mockClick).toHaveBeenNthCalledWith(
+      1,
+      'a:has-text("Switch Account")',
+    );
+  });
+
+  it("Should throw Error if failed to click player name label", async () => {
+    mockClick
+      .mockResolvedValueOnce(undefined)
+      .mockRejectedValue(new Error("Failed to click player name label."));
+
+    await expect(switchPlayer(mockPage, "playerName")).rejects.toThrow(
+      "Failed to click player name label.",
+    );
+    expect(mockClick).toHaveBeenNthCalledWith(
+      2,
+      'label:has-text("playerName")',
+    );
+  });
+
+  it("Should throw Error if failed to wait 10 seconds", async () => {
+    mockWaitForTimeout.mockRejectedValue(
+      new Error("Failed to wait 10 seconds."),
+    );
+
+    await expect(switchPlayer(mockPage, "playerName")).rejects.toThrow(
+      "Failed to wait 10 seconds.",
+    );
+    expect(mockWaitForTimeout).toHaveBeenNthCalledWith(1, 10000);
+  });
+
+  it("Should return undefined if switch player successfully", async () => {
+    const result = await switchPlayer(mockPage, "playerName");
+    expect(result).toBeUndefined();
+  });
+
+  it('Should take screenshot if NODE_ENV is "development"', async () => {
+    process.env.NODE_ENV = "development";
+
+    await switchPlayer(mockPage, "playerName");
+    expect(mockScreenshot).toHaveBeenCalledWith({
+      fullPage: true,
+      path: "imgs/screenshot_switchPlayer_playerName.png",
+    });
+  });
+
+  it('Should not take screenshot if NODE_ENV is not "development"', async () => {
+    process.env.NODE_ENV = "production";
+
+    await switchPlayer(mockPage, "playerName");
+    expect(mockScreenshot).toHaveBeenCalledTimes(0);
   });
 });
 

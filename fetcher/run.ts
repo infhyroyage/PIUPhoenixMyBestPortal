@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { Browser, BrowserContext, Page, chromium } from "playwright-chromium";
-import { fetchMyBests, fetchSteps, login } from "./scrape";
+import { fetchMyBests, fetchSteps, login, switchPlayer } from "./scrape";
 import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
 import { listGistInfo } from "../services/gist";
 import { createGistContent, upsertGist } from "./gist";
@@ -39,11 +39,7 @@ export async function run() {
     throw new Error("PIU_PHOENIX_PASSWORD is not set.");
   }
   const piuPhoenixPassword: string = process.env.PIU_PHOENIX_PASSWORD;
-  // TODO: Switch to PLAYER_NAME
-  // if (!process.env.PLAYER_NAME) {
-  //   throw new Error("PLAYER_NAME is not set.");
-  // }
-  // const playerName: string = process.env.PLAYER_NAME;
+  const playerName: string | undefined = process.env.PLAYER_NAME;
 
   const startTime: number = Date.now();
 
@@ -58,6 +54,11 @@ export async function run() {
 
     // Login Pump It Up Phoenix
     await login(page, piuPhoenixEmail, piuPhoenixPassword);
+
+    // Switch to PLAYER_NAME
+    if (playerName) {
+      await switchPlayer(page, playerName);
+    }
 
     for (const lv of ALL_LV) {
       // Fetch All Steps

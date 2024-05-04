@@ -28,6 +28,37 @@ export async function login(
 }
 
 /**
+ * Switch Player
+ * @param {Page} page Playwright Page
+ * @param {string} playerName Player Name
+ * @returns {Promise<void>}
+ */
+export async function switchPlayer(
+  page: Page,
+  playerName: string,
+): Promise<void> {
+  // Access "My Best Score"
+  await page.goto("https://www.piugame.com/my_page/my_best_score.php");
+
+  // Click "Switch Account" Button
+  await page.click('a:has-text("Switch Account")');
+
+  // Click Player Name Label
+  await page.click(`label:has-text("${playerName}")`);
+
+  // Wait 10 Seconds for Completing Accessing the Another Page
+  await page.waitForTimeout(10000);
+
+  // Take Screenshot for Development
+  if (process.env.NODE_ENV === "development") {
+    await page.screenshot({
+      fullPage: true,
+      path: `imgs/screenshot_switchPlayer_${playerName}.png`,
+    });
+  }
+}
+
+/**
  * Fetch All Steps from "Over Lv.20 Ranking"
  * @param {Page} page Playwright Page
  * @param {Lv} lv Query Parameter "lv"

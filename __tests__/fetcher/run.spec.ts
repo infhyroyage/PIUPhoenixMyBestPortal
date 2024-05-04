@@ -1,6 +1,11 @@
 import { chromium } from "playwright-chromium";
 import { Mock, beforeEach, expect, it, vi } from "vitest";
-import { fetchSteps, fetchMyBests, login } from "../../fetcher/scrape";
+import {
+  fetchSteps,
+  fetchMyBests,
+  login,
+  switchPlayer,
+} from "../../fetcher/scrape";
 import { createGistContent, upsertGist } from "../../fetcher/gist";
 import { listGistInfo } from "../../services/gist";
 import { run } from "../../fetcher/run";
@@ -199,7 +204,7 @@ it("Should close browser if upsertGist throws error", async () => {
   expect(mockClose).toHaveBeenCalled();
 });
 
-it("Should complete without throwing errors", async () => {
+it("Should upsert gist without switching player", async () => {
   (listGistInfo as Mock).mockResolvedValue([]);
   (chromium.launch as Mock).mockResolvedValue({
     newContext: mockNewContext,
@@ -212,6 +217,31 @@ it("Should complete without throwing errors", async () => {
     click: mockClick,
   });
   (login as Mock).mockResolvedValue(undefined);
+  (fetchSteps as Mock).mockResolvedValue([]);
+  (fetchMyBests as Mock).mockResolvedValue([]);
+  (createGistContent as Mock).mockReturnValue([]);
+  (upsertGist as Mock).mockReturnValue(undefined);
+
+  await expect(run()).resolves.toBeUndefined();
+  expect(mockClose).toHaveBeenCalled();
+});
+
+it("Should upsert gist with switching player", async () => {
+  process.env.PLAYER_NAME = "PLAYER_NAME";
+
+  (listGistInfo as Mock).mockResolvedValue([]);
+  (chromium.launch as Mock).mockResolvedValue({
+    newContext: mockNewContext,
+    close: mockClose,
+  });
+  mockNewContext.mockReturnValue({ newPage: mockNewPage });
+  mockNewPage.mockReturnValue({
+    goto: mockGoto,
+    fill: mockFill,
+    click: mockClick,
+  });
+  (login as Mock).mockResolvedValue(undefined);
+  (switchPlayer as Mock).mockReturnValue(undefined);
   (fetchSteps as Mock).mockResolvedValue([]);
   (fetchMyBests as Mock).mockResolvedValue([]);
   (createGistContent as Mock).mockReturnValue([]);
