@@ -2,6 +2,32 @@ import { Page } from "playwright-core";
 import { Lv, MyBest, Step } from "../services/types";
 
 /**
+ * Login to Pump It Up Phoenix
+ * @param {Page} page Playwright Page
+ * @param {string} email E-mail
+ * @param {string} password Password
+ * @returns {Promise<void>}
+ */
+export async function login(
+  page: Page,
+  email: string,
+  password: string,
+): Promise<void> {
+  // Access Oficial Site
+  await page.goto("https://www.piugame.com/");
+
+  // Input E-mail and Password
+  await page.fill('input[name="mb_id"][placeholder="E-mail"]', email);
+  await page.fill(
+    'input[name="mb_password"][placeholder="Password"]',
+    password,
+  );
+
+  // Click "Login" Button
+  await page.click('button[type="submit"]:has-text("Login")');
+}
+
+/**
  * Fetch All Steps from "Over Lv.20 Ranking"
  * @param {Page} page Playwright Page
  * @param {Lv} lv Query Parameter "lv"

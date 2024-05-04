@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { Browser, BrowserContext, Page, chromium } from "playwright-chromium";
-import { fetchMyBests, fetchSteps } from "./scrape";
+import { fetchMyBests, fetchSteps, login } from "./scrape";
 import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
 import { listGistInfo } from "../services/gist";
 import { createGistContent, upsertGist } from "./gist";
@@ -57,16 +57,7 @@ export async function run() {
     const page: Page = await context.newPage();
 
     // Login Pump It Up Phoenix
-    await page.goto("https://www.piugame.com/");
-    await page.fill(
-      'input[name="mb_id"][placeholder="E-mail"]',
-      piuPhoenixEmail,
-    );
-    await page.fill(
-      'input[name="mb_password"][placeholder="Password"]',
-      piuPhoenixPassword,
-    );
-    await page.click('button[type="submit"]:has-text("Login")');
+    await login(page, piuPhoenixEmail, piuPhoenixPassword);
 
     for (const lv of ALL_LV) {
       // Fetch All Steps

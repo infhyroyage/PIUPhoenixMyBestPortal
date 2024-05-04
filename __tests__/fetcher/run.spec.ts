@@ -1,6 +1,6 @@
 import { chromium } from "playwright-chromium";
 import { Mock, beforeEach, expect, it, vi } from "vitest";
-import { fetchSteps, fetchMyBests } from "../../fetcher/scrape";
+import { fetchSteps, fetchMyBests, login } from "../../fetcher/scrape";
 import { createGistContent, upsertGist } from "../../fetcher/gist";
 import { listGistInfo } from "../../services/gist";
 import { run } from "../../fetcher/run";
@@ -91,51 +91,7 @@ it("Should close browser if newPage throws error", async () => {
   expect(mockClose).toHaveBeenCalled();
 });
 
-it("Should close browser if failed to move to login page", async () => {
-  (listGistInfo as Mock).mockResolvedValue([]);
-  (chromium.launch as Mock).mockResolvedValue({
-    newContext: mockNewContext,
-    close: mockClose,
-  });
-  mockNewContext.mockReturnValue({ newPage: mockNewPage });
-  mockNewPage.mockReturnValue({ goto: mockGoto });
-  mockGoto.mockRejectedValueOnce(new Error("Failed to move to login page."));
-
-  await expect(run()).rejects.toThrow("Failed to move to login page.");
-  expect(mockClose).toHaveBeenCalled();
-});
-
-it("Should close browser if failed to input email", async () => {
-  (listGistInfo as Mock).mockResolvedValue([]);
-  (chromium.launch as Mock).mockResolvedValue({
-    newContext: mockNewContext,
-    close: mockClose,
-  });
-  mockNewContext.mockReturnValue({ newPage: mockNewPage });
-  mockNewPage.mockReturnValue({ goto: mockGoto, fill: mockFill });
-  mockFill.mockRejectedValueOnce(new Error("Failed to input email."));
-
-  await expect(run()).rejects.toThrow("Failed to input email.");
-  expect(mockClose).toHaveBeenCalled();
-});
-
-it("Should close browser if failed to input password", async () => {
-  (listGistInfo as Mock).mockResolvedValue([]);
-  (chromium.launch as Mock).mockResolvedValue({
-    newContext: mockNewContext,
-    close: mockClose,
-  });
-  mockNewContext.mockReturnValue({ newPage: mockNewPage });
-  mockNewPage.mockReturnValue({ goto: mockGoto, fill: mockFill });
-  mockFill
-    .mockReturnValueOnce({})
-    .mockRejectedValueOnce(new Error("Failed to input password."));
-
-  await expect(run()).rejects.toThrow("Failed to input password.");
-  expect(mockClose).toHaveBeenCalled();
-});
-
-it("Should close browser if failed to click 'Login' button", async () => {
+it("Should close browser if login throws error", async () => {
   (listGistInfo as Mock).mockResolvedValue([]);
   (chromium.launch as Mock).mockResolvedValue({
     newContext: mockNewContext,
@@ -147,9 +103,9 @@ it("Should close browser if failed to click 'Login' button", async () => {
     fill: mockFill,
     click: mockClick,
   });
-  mockClick.mockRejectedValue(new Error("Failed to click 'Login' button."));
+  (login as Mock).mockRejectedValue(new Error("Failed to login."));
 
-  await expect(run()).rejects.toThrow("Failed to click 'Login' button.");
+  await expect(run()).rejects.toThrow("Failed to login.");
   expect(mockClose).toHaveBeenCalled();
 });
 
@@ -165,6 +121,7 @@ it("Should close browser if fetchSteps throws error", async () => {
     fill: mockFill,
     click: mockClick,
   });
+  (login as Mock).mockResolvedValue(undefined);
   (fetchSteps as Mock).mockRejectedValue(
     new Error("Failed to fetch all steps."),
   );
@@ -185,6 +142,7 @@ it("Should close browser if fetchMyBests throws error", async () => {
     fill: mockFill,
     click: mockClick,
   });
+  (login as Mock).mockResolvedValue(undefined);
   (fetchSteps as Mock).mockResolvedValue([]);
   (fetchMyBests as Mock).mockRejectedValue(
     new Error("Failed to fetch all my bests."),
@@ -206,6 +164,7 @@ it("Should close browser if createGistContent throws error", async () => {
     fill: mockFill,
     click: mockClick,
   });
+  (login as Mock).mockResolvedValue(undefined);
   (fetchSteps as Mock).mockResolvedValue([]);
   (fetchMyBests as Mock).mockResolvedValue([]);
   (createGistContent as Mock).mockImplementation(() => {
@@ -228,6 +187,7 @@ it("Should close browser if upsertGist throws error", async () => {
     fill: mockFill,
     click: mockClick,
   });
+  (login as Mock).mockResolvedValue(undefined);
   (fetchSteps as Mock).mockResolvedValue([]);
   (fetchMyBests as Mock).mockResolvedValue([]);
   (createGistContent as Mock).mockReturnValue([]);
@@ -251,6 +211,7 @@ it("Should complete without throwing errors", async () => {
     fill: mockFill,
     click: mockClick,
   });
+  (login as Mock).mockResolvedValue(undefined);
   (fetchSteps as Mock).mockResolvedValue([]);
   (fetchMyBests as Mock).mockResolvedValue([]);
   (createGistContent as Mock).mockReturnValue([]);

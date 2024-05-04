@@ -1,18 +1,80 @@
 import { Page } from "playwright-chromium";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchMyBests, fetchSteps } from "../../fetcher/scrape";
+import { fetchMyBests, fetchSteps, login } from "../../fetcher/scrape";
 
 const mockGoto = vi.fn();
+const mockFill = vi.fn();
+const mockClick = vi.fn();
 const mock$ = vi.fn();
 const mockScreenshot = vi.fn();
 const mockPage = {
   goto: mockGoto,
+  fill: mockFill,
+  click: mockClick,
   $: mock$,
   screenshot: mockScreenshot,
 } as unknown as Page;
 
 beforeEach(() => {
   vi.resetAllMocks();
+});
+
+describe("login", () => {
+  it("Should throw Error if failed to access official site", async () => {
+    mockGoto.mockRejectedValueOnce(
+      new Error("Failed to access official site."),
+    );
+
+    await expect(login(mockPage, "email", "password")).rejects.toThrow(
+      "Failed to access official site.",
+    );
+    expect(mockGoto).toHaveBeenNthCalledWith(1, "https://www.piugame.com/");
+  });
+
+  it("Should throw Error if failed to input email", async () => {
+    mockFill.mockRejectedValueOnce(new Error("Failed to input email."));
+
+    await expect(login(mockPage, "email", "password")).rejects.toThrow(
+      "Failed to input email.",
+    );
+    expect(mockFill).toHaveBeenNthCalledWith(
+      1,
+      'input[name="mb_id"][placeholder="E-mail"]',
+      "email",
+    );
+  });
+
+  it("Should throw Error if failed to input password", async () => {
+    mockFill
+      .mockReturnValueOnce(undefined)
+      .mockRejectedValueOnce(new Error("Failed to input password."));
+
+    await expect(login(mockPage, "email", "password")).rejects.toThrow(
+      "Failed to input password.",
+    );
+    expect(mockFill).toHaveBeenNthCalledWith(
+      2,
+      'input[name="mb_password"][placeholder="Password"]',
+      "password",
+    );
+  });
+
+  it("Should throw Error if failed to click 'Login' button", async () => {
+    mockClick.mockRejectedValue(new Error("Failed to click 'Login' button."));
+
+    await expect(login(mockPage, "email", "password")).rejects.toThrow(
+      "Failed to click 'Login' button.",
+    );
+    expect(mockClick).toHaveBeenNthCalledWith(
+      1,
+      'button[type="submit"]:has-text("Login")',
+    );
+  });
+
+  it("Should return undefined if login successfully", async () => {
+    const result = await login(mockPage, "email", "password");
+    expect(result).toBeUndefined();
+  });
 });
 
 describe("fetchSteps", () => {
