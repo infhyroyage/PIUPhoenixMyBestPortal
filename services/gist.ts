@@ -72,11 +72,15 @@ export async function getScores(lv?: Lv): Promise<Score[]> {
   let gistInfoList: GistInfo[] = await listGistInfo(process.env.GIST_PAT, lv);
   if (!lv) {
     // Sort Gists by filename
-    gistInfoList = gistInfoList.sort((a, b) => {
-      const aFiles = Object.keys(a.files);
-      const aFilename = aFiles.length ? a.files[aFiles[0]].filename || "" : "";
-      const bFiles = Object.keys(b.files);
-      const bFilename = bFiles.length ? b.files[bFiles[0]].filename || "" : "";
+    gistInfoList = gistInfoList.sort((a: GistInfo, b: GistInfo) => {
+      const aFiles: string[] = Object.keys(a.files);
+      const aFilename: string = aFiles.length
+        ? a.files[aFiles[0]].filename || ""
+        : "";
+      const bFiles: string[] = Object.keys(b.files);
+      const bFilename: string = bFiles.length
+        ? b.files[bFiles[0]].filename || ""
+        : "";
       return aFilename.localeCompare(bFilename);
     });
   }
@@ -84,7 +88,7 @@ export async function getScores(lv?: Lv): Promise<Score[]> {
   // Get Each Gist Content from "raw_url" and Merge
   const scores: Score[] = [];
   for (const gistInfo of gistInfoList) {
-    const fileKeys = Object.keys(gistInfo.files);
+    const fileKeys: string[] = Object.keys(gistInfo.files);
     if (fileKeys.length !== 1) continue;
     const rawUrl: string | undefined = gistInfo.files[fileKeys[0]]?.raw_url;
     if (!rawUrl) continue;
