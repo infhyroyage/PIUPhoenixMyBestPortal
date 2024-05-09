@@ -6,7 +6,7 @@
     "fetch": "NODE_ENV=production tsx fetcher/index.ts",
     "fetch:dev": "rm -rf imgs;NODE_ENV=development tsx fetcher/index.ts",
     "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf .next;next build",
     "start": "serve out",
     "lint": "eslint '**/*.{ts,tsx}'",
     "test": "vitest"
