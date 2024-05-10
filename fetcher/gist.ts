@@ -1,18 +1,17 @@
-import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
+import { getGistInfo } from "@/services/gist";
+import { GistInfo, GistJson, MyBest, Score, Step } from "@/services/types";
 
 /**
- * Create Gist Content
+ * Create All My Best Scores unite with Steps and My Bests
  * @param {Step[]} steps Fetched All Steps
- * @param {MyBest[]} myBests Fetched All My Best Scores
- * @returns {Score[]} Gist Content
+ * @param {MyBest[]} myBests Fetched All My Bests
+ * @returns {Score[]} All My Best Scores
  */
-export function createGistContent(steps: Step[], myBests: MyBest[]): Score[] {
+export function createScores(steps: Step[], myBests: MyBest[]): Score[] {
   return steps.map((step: Step) => {
     const foundMyBest: MyBest | undefined = myBests.find(
       (myBest: MyBest) =>
-        myBest.lv === step.lv &&
-        myBest.songName === step.songName &&
-        myBest.stepType === step.stepType,
+        myBest.songName === step.songName && myBest.stepType === step.stepType,
     );
     return {
       ...step,
@@ -27,36 +26,28 @@ export function createGistContent(steps: Step[], myBests: MyBest[]): Score[] {
 
 /**
  * Upsert PIUPhoenixMyBestPortal Gist
- * @param {Score[]} scores Gist Content
- * @param {Lv} lv Query Parameter "lv"
- * @param {GistInfo[]} gistInfoList PIUPhoenixMyBestPortal Gists
+ * @param {GistJson} gistJson JSON Format of PIUPhoenixMyBestPortal Gist
  * @param {string} gistPat GutHub Personal Access Token to Read and Write Gists
  * @returns {Promise<void>}
  * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#create-a-gist
  * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#update-a-gist
  */
 export async function upsertGist(
-  scores: Score[],
-  lv: Lv,
-  gistInfoList: GistInfo[],
+  gistJson: GistJson,
   gistPat: string,
 ): Promise<void> {
-  // Check if PIUPhoenixMyBestPortal Gist is already created
-  const filename: string = `${lv}.json`;
-  const foundGist: GistInfo | undefined = gistInfoList.find(
-    (gistInfo: GistInfo) =>
-      gistInfo.files[filename] &&
-      gistInfo.files[filename].filename === filename,
-  );
+  const filename: string = "PIUPhoenixMyBestPortal.json";
 
-  if (foundGist) {
+  // Check if PIUPhoenixMyBestPortal Gist is already upserted
+  const foundGistInfo: GistInfo | undefined = await getGistInfo(gistPat);
+  if (foundGistInfo) {
     // Update PIUPhoenixMyBestPortal Gist
-    await fetch(`https://api.github.com/gists/${foundGist.id}`, {
+    await fetch(`https://api.github.com/gists/${foundGistInfo.id}`, {
       body: JSON.stringify({
         description: "PIUPhoenixMyBestPortal",
         files: {
           [filename]: {
-            content: JSON.stringify(scores),
+            content: JSON.stringify(gistJson),
             filename,
           },
         },
@@ -75,7 +66,7 @@ export async function upsertGist(
         description: "PIUPhoenixMyBestPortal",
         files: {
           [filename]: {
-            content: JSON.stringify(scores),
+            content: JSON.stringify(gistJson),
           },
         },
         public: true,

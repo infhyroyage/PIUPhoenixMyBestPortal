@@ -1,22 +1,20 @@
-import { GistInfo, Lv, Score } from "./types";
+import { GistInfo, GistJson, Lv, Score } from "./types";
 
 /**
- * List PIUPhoenixMyBestPortal Gists
+ * Get PIUPhoenixMyBestPortal Gist Information
  * @param {string} gistPat GutHub Personal Access Token to Read and Write Gists
- * @param {Lv} [lv] Query Parameter "lv"
- * @returns {GistInfo[]} PIUPhoenixMyBestPortal Gists
+ * @returns {GistInfo | undefined} PIUPhoenixMyBestPortal Gist, undefined if not found
  * @see https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28#list-gists-for-the-authenticated-user
  */
-export async function listGistInfo(
+export async function getGistInfo(
   gistPat: string,
-  lv?: Lv,
-): Promise<GistInfo[]> {
-  // List All Gists
+): Promise<GistInfo | undefined> {
+  // List All Gist Information
   const gistInfoList: GistInfo[] = [];
   let url: string = "https://api.github.com/gists";
   let isRemained: boolean = true;
   while (isRemained) {
-    // Get Partial Gists
+    // Get Partial Gist Information
     const res: Response = await fetch(url, {
       headers: {
         Accept: "application/vnd.github+json",
@@ -27,7 +25,7 @@ export async function listGistInfo(
     const data: GistInfo[] = await res.json();
     gistInfoList.push(...data);
 
-    // Extract Next Gists Getting URL for Pagination
+    // Extract Next Gist Information Getting URL for Pagination
     const linkHeader: string | null = res.headers.get("link");
     if (!linkHeader) {
       isRemained = false;
@@ -43,23 +41,20 @@ export async function listGistInfo(
     url = matchedResult[0];
   }
 
-  // Filter PIUPhoenixMyBestPortal Gists
-  return gistInfoList.filter((gist: GistInfo) => {
-    if (gist.description !== "PIUPhoenixMyBestPortal") return false;
-    if (lv) {
-      const filename: string = `${lv}.json`;
-      const files = gist.files[filename];
-      return files && files.filename === filename;
-    } else {
-      return true;
-    }
-  });
+  // Filter only PIUPhoenixMyBestPortal Gist Information
+  const filename: string = "PIUPhoenixMyBestPortal.json";
+  return gistInfoList.find(
+    (gistInfo: GistInfo) =>
+      gistInfo.files[filename] &&
+      gistInfo.files[filename].filename === filename &&
+      gistInfo.description === "PIUPhoenixMyBestPortal",
+  );
 }
 
 /**
- * Get Scores from PIUPhoenixMyBestPortal Gists
+ * Get My Best Scores from PIUPhoenixMyBestPortal Gists
  * @param {Lv} [lv] Query Parameter "lv"
- * @returns {Score[]} Scores
+ * @returns {Score[]} My Best Scores
  */
 export async function getScores(lv?: Lv): Promise<Score[]> {
   // Validation Check
@@ -68,34 +63,25 @@ export async function getScores(lv?: Lv): Promise<Score[]> {
     return [];
   }
 
-  // List PIUPhoenixMyBestPortal Gists with Query Parameter "lv"
-  let gistInfoList: GistInfo[] = await listGistInfo(process.env.GIST_PAT, lv);
-  if (!lv) {
-    // Sort Gists by filename
-    gistInfoList = gistInfoList.sort((a: GistInfo, b: GistInfo) => {
-      const aFiles: string[] = Object.keys(a.files);
-      const aFilename: string = aFiles.length
-        ? a.files[aFiles[0]].filename || ""
-        : "";
-      const bFiles: string[] = Object.keys(b.files);
-      const bFilename: string = bFiles.length
-        ? b.files[bFiles[0]].filename || ""
-        : "";
-      return aFilename.localeCompare(bFilename);
-    });
-  }
+  // Get PIUPhoenixMyBestPortal Gist Information
+  const gistInfo: GistInfo | undefined = await getGistInfo(
+    process.env.GIST_PAT,
+  );
+  if (!gistInfo) return [];
 
-  // Get Each Gist Content from "raw_url" and Merge
-  const scores: Score[] = [];
-  for (const gistInfo of gistInfoList) {
-    const fileKeys: string[] = Object.keys(gistInfo.files);
-    if (fileKeys.length !== 1) continue;
-    const rawUrl: string | undefined = gistInfo.files[fileKeys[0]]?.raw_url;
-    if (!rawUrl) continue;
+  // Get PIUPhoenixMyBestPortal Gist
+  const fileKeys: string[] = Object.keys(gistInfo.files);
+  if (fileKeys.length !== 1) return [];
+  const rawUrl: string | undefined = gistInfo.files[fileKeys[0]]?.raw_url;
+  if (!rawUrl) return [];
+  const res: Response = await fetch(rawUrl);
+  const gistJson: GistJson = await res.json();
 
-    const res: Response = await fetch(rawUrl);
-    const scrs: Score[] = await res.json();
-    scores.push(...scrs);
-  }
-  return scores;
+  // Filter by "lv"
+  return lv
+    ? gistJson[lv]
+    : Object.keys(gistJson).reduce(
+        (acc: Score[], lv: string) => [...acc, ...gistJson[lv as Lv]],
+        [] as Score[],
+      );
 }

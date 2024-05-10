@@ -1,9 +1,8 @@
 import { config } from "dotenv";
 import { Browser, BrowserContext, Page, chromium } from "playwright-chromium";
 import { fetchMyBests, fetchSteps, login, switchPlayer } from "./scrape";
-import { GistInfo, Lv, MyBest, Score, Step } from "../services/types";
-import { listGistInfo } from "../services/gist";
-import { createGistContent, upsertGist } from "./gist";
+import { GistJson, Lv, MyBest, Score, Step } from "../services/types";
+import { createScores, upsertGist } from "./gist";
 
 /**
  * All Query Parameters "lv" of "Over Lv.20 Ranking" and "My Best Score"
@@ -41,11 +40,6 @@ export async function run() {
   const piuPhoenixPassword: string = process.env.PIU_PHOENIX_PASSWORD;
   const playerName: string | undefined = process.env.PLAYER_NAME;
 
-  const startTime: number = Date.now();
-
-  // List PIUPhoenixMyBestPortal Gists
-  const gistInfoList: GistInfo[] = await listGistInfo(gistPat);
-
   // Initialize Playwright Page
   const browser: Browser = await chromium.launch();
   try {
@@ -60,28 +54,29 @@ export async function run() {
       await switchPlayer(page, playerName);
     }
 
+    // Create PIUPhoenixMyBestPortal Gist
+    const gistJson: GistJson = ALL_LV.reduce((gj: GistJson, lv: Lv) => {
+      gj[lv] = [];
+      return gj;
+    }, {} as GistJson);
     for (const lv of ALL_LV) {
       // Fetch All Steps
       const steps: Step[] = await fetchSteps(page, lv);
 
-      // Fetch All My Best Scores
+      // Fetch All My Bests
       const myBests: MyBest[] = await fetchMyBests(page, lv);
 
-      // Create Gist Content
-      const scores: Score[] = createGistContent(steps, myBests);
+      // Create and Add All My Bests
+      const scores: Score[] = createScores(steps, myBests);
       if (process.env.NODE_ENV === "development") {
         console.log(JSON.stringify(scores, null, 2));
       }
-
-      // Upsert Gist
-      await upsertGist(scores, lv, gistInfoList, gistPat);
+      gistJson[lv] = scores;
     }
+
+    // Upsert PIUPhoenixMyBestPortal Gist
+    await upsertGist(gistJson, gistPat);
   } finally {
     await browser.close();
-
-    if (process.env.NODE_ENV !== "test") {
-      const endTime: number = Date.now();
-      console.log(`Fetching Time: ${(endTime - startTime) / 1000} sec.`);
-    }
   }
 }

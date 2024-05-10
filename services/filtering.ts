@@ -35,11 +35,11 @@ export function createStepSelectorElements(
 }
 
 /**
- * Filter original scores gotton from PIUPhoenixMyBestPortal Gists
- * @param {Score[]} scores Original scores
- * @param {string[]} selectedStepValues Selected step values in FilteringSelecter
- * @param {string[]} selectedRankValues Selected rank values in FilteringSelecter
- * @returns {Score[]} Filtered scores
+ * Filter Original My Best Scores Gotton from PIUPhoenixMyBestPortal Gists
+ * @param {Score[]} scores Original My Best Scores
+ * @param {string[]} selectedStepValues Selected Step Values in FilteringSelecter
+ * @param {string[]} selectedRankValues Selected Rank Values in FilteringSelecter
+ * @returns {Score[]} Filtered My Best Scores
  */
 export function createFilteredScores(
   scores: Score[],

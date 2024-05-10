@@ -62,7 +62,7 @@ export async function switchPlayer(
  * Fetch All Steps from "Over Lv.20 Ranking"
  * @param {Page} page Playwright Page
  * @param {Lv} lv Query Parameter "lv"
- * @returns {Step[]} Fetched All Steps
+ * @returns {Step[]} All Steps
  */
 export async function fetchSteps(page: Page, lv: Lv): Promise<Step[]> {
   const steps: Step[] = [];
@@ -159,7 +159,6 @@ export async function fetchSteps(page: Page, lv: Lv): Promise<Step[]> {
 
         // Add Step
         steps.push({
-          lv,
           songName,
           stepType,
           thumbnailImgSrc,
@@ -180,10 +179,10 @@ export async function fetchSteps(page: Page, lv: Lv): Promise<Step[]> {
 }
 
 /**
- * Fetch All My Best Scores from "My Best Score"
+ * Fetch All My Bests from "My Best Score"
  * @param {Page} page Playwright Page
  * @param {Lv} lv Query Parameter "lv"
- * @returns {MyBest[]} Fetched All My Best Scores
+ * @returns {MyBest[]} All My Bests
  */
 export async function fetchMyBests(page: Page, lv: Lv): Promise<MyBest[]> {
   const myBests: MyBest[] = [];
@@ -287,9 +286,8 @@ export async function fetchMyBests(page: Page, lv: Lv): Promise<MyBest[]> {
         const plateImgSrc = await imgSt1DivImg.getAttribute("src");
         if (!plateImgSrc) continue;
 
-        // Add My Best Score
+        // Add My Best
         myBests.push({
-          lv,
           songName,
           stepType,
           score,

@@ -47,11 +47,6 @@ export type Lv =
  */
 export type Step = {
   /**
-   * Query Parameters "lv"
-   */
-  lv: Lv;
-
-  /**
    * Song Name
    */
   songName: string;
@@ -69,14 +64,9 @@ export type Step = {
 };
 
 /**
- * Fetched My Best Score from "My Best Score"
+ * Fetched My Best from "My Best Score"
  */
 export type MyBest = {
-  /**
-   * Query Parameters "lv"
-   */
-  lv: Lv;
-
   /**
    * Song Name
    */
@@ -105,6 +95,16 @@ export type MyBest = {
 };
 
 /**
- * Unit Item of each json file in Gist
+ * My Best Score Unit
  */
 export type Score = Step & MyBest;
+
+/**
+ * JSON Format of PIUPhoenixMyBestPortal Gist
+ */
+export type GistJson = {
+  /**
+   * My Best Scores of Each Query Parameter "lv"
+   */
+  [lv in Lv]: Score[];
+};
