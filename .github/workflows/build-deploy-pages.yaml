@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - __tests__
       - .eslintrc.yaml
       - .github/workflows/build-deploy-pages.yaml
       - .github/workflows/reusable-build-deploy-pages.yaml
