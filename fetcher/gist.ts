@@ -1,4 +1,4 @@
-import { getGistInfo } from "@/services/gist";
+import { getGistInfo } from "../services/gist";
 import { GistInfo, GistJson, MyBest, Score, Step } from "@/services/types";
 
 /**

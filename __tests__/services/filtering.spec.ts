@@ -44,7 +44,6 @@ describe("createStepSelectorElements", () => {
 describe("createFilteredScores", () => {
   const mockScores: Score[] = [
     {
-      lv: "20",
       songName: "songName1",
       stepType: "S20",
       thumbnailImgSrc: "thumbnailImgSrc1",
@@ -53,7 +52,6 @@ describe("createFilteredScores", () => {
       plateImgSrc: "plateImgSrc1",
     },
     {
-      lv: "21",
       songName: "songName2",
       stepType: "D21",
       thumbnailImgSrc: "thumbnailImgSrc2",
@@ -62,13 +60,11 @@ describe("createFilteredScores", () => {
       plateImgSrc: "plateImgSrc2",
     },
     {
-      lv: "27over",
       songName: "songName3",
       stepType: "D28",
       thumbnailImgSrc: "thumbnailImgSrc3",
     },
     {
-      lv: "coop",
       songName: "songName4",
       stepType: "CO-OPx2",
       thumbnailImgSrc: "thumbnailImgSrc4",
@@ -87,7 +83,6 @@ describe("createFilteredScores", () => {
     const result = createFilteredScores(mockScores, ["S"], []);
     expect(result).toStrictEqual([
       {
-        lv: "20",
         songName: "songName1",
         stepType: "S20",
         thumbnailImgSrc: "thumbnailImgSrc1",
@@ -102,7 +97,6 @@ describe("createFilteredScores", () => {
     const result = createFilteredScores(mockScores, [], ["gradeImgSrc1"]);
     expect(result).toStrictEqual([
       {
-        lv: "20",
         songName: "songName1",
         stepType: "S20",
         thumbnailImgSrc: "thumbnailImgSrc1",

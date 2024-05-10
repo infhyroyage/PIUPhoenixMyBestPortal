@@ -588,7 +588,6 @@ describe("fetchSteps", () => {
     const result = await fetchSteps(mockPage, "20");
     expect(result).toStrictEqual([
       {
-        lv: "20",
         songName: "songName1",
         stepType: "S20",
         thumbnailImgSrc: "thumbnailImgSrc1",
@@ -657,31 +656,26 @@ describe("fetchSteps", () => {
     const result = await fetchSteps(mockPage, "20");
     expect(result).toStrictEqual([
       {
-        lv: "20",
         songName: "songName1",
         stepType: "S20",
         thumbnailImgSrc: "thumbnailImgSrc1",
       },
       {
-        lv: "20",
         songName: "songName2",
         stepType: "D20",
         thumbnailImgSrc: "thumbnailImgSrc2",
       },
       {
-        lv: "20",
         songName: "songName3",
         stepType: "SP20",
         thumbnailImgSrc: "thumbnailImgSrc3",
       },
       {
-        lv: "20",
         songName: "songName4",
         stepType: "DP20",
         thumbnailImgSrc: "thumbnailImgSrc4",
       },
       {
-        lv: "20",
         songName: "songName5",
         stepType: "CO-OPx0",
         thumbnailImgSrc: "thumbnailImgSrc5",
@@ -1321,7 +1315,6 @@ describe("fetchMyBests", () => {
     const result = await fetchMyBests(mockPage, "20");
     expect(result).toStrictEqual([
       {
-        lv: "20",
         songName: "songName1",
         stepType: "S20",
         score: "score1",
@@ -1396,7 +1389,6 @@ describe("fetchMyBests", () => {
     const result = await fetchMyBests(mockPage, "20");
     expect(result).toStrictEqual([
       {
-        lv: "20",
         songName: "songName1",
         stepType: "S20",
         score: "score1",
@@ -1404,7 +1396,6 @@ describe("fetchMyBests", () => {
         plateImgSrc: "plateImgSrc1",
       },
       {
-        lv: "20",
         songName: "songName2",
         stepType: "D20",
         score: "score2",
@@ -1412,7 +1403,6 @@ describe("fetchMyBests", () => {
         plateImgSrc: "plateImgSrc2",
       },
       {
-        lv: "20",
         songName: "songName3",
         stepType: "SP20",
         score: "score3",
@@ -1420,7 +1410,6 @@ describe("fetchMyBests", () => {
         plateImgSrc: "plateImgSrc3",
       },
       {
-        lv: "20",
         songName: "songName4",
         stepType: "DP20",
         score: "score4",
@@ -1428,7 +1417,6 @@ describe("fetchMyBests", () => {
         plateImgSrc: "plateImgSrc4",
       },
       {
-        lv: "20",
         songName: "songName5",
         stepType: "CO-OPx0",
         score: "score5",
