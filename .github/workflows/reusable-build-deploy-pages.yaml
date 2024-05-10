@@ -52,10 +52,18 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Test
+        run: npx vitest --coverage.enabled --coverage.reporter=json-summary
+
       - name: Build Artifact
         run: npm run build
         env:
           GIST_PAT: ${{ secrets.GIST_PAT }}
+
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@v2.0.0
+        with:
+          output: out/badges.svg
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
