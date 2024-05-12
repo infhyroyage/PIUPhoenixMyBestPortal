@@ -12,9 +12,9 @@
 name: Scan Javascript/Typescript by CodeQL
 
 on:
-  schedule:
-    # Every Friday 00:00(UTC)
-    - cron: "0 0 * * 5"
+  pull_request:
+    branches:
+      - main
 
 jobs:
   analyze:
