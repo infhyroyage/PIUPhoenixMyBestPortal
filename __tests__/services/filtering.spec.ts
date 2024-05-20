@@ -94,7 +94,7 @@ describe("createFilteredScores", () => {
   });
 
   it("Should return scores filtered by grade image source", () => {
-    const result = createFilteredScores(mockScores, [], ["gradeImgSrc1"]);
+    const result = createFilteredScores(mockScores, [], ["", "gradeImgSrc1"]);
     expect(result).toStrictEqual([
       {
         songName: "songName1",
@@ -103,6 +103,11 @@ describe("createFilteredScores", () => {
         score: "score1",
         gradeImgSrc: "gradeImgSrc1",
         plateImgSrc: "plateImgSrc1",
+      },
+      {
+        songName: "songName3",
+        stepType: "D28",
+        thumbnailImgSrc: "thumbnailImgSrc3",
       },
     ]);
   });

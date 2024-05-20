@@ -47,6 +47,7 @@ export function createFilteredScores(
   selectedRankValues: string[],
 ): Score[] {
   return scores.filter((score: Score) => {
+    // Exclude Scores with Step Type
     if (
       selectedStepValues.length > 0 &&
       !selectedStepValues.find((value: string) =>
@@ -55,12 +56,15 @@ export function createFilteredScores(
     ) {
       return false;
     }
+
+    // Exclude Scores with Rank
     if (
       selectedRankValues.length > 0 &&
       !selectedRankValues.includes(score.gradeImgSrc ?? "")
     ) {
       return false;
     }
+
     return true;
   });
 }

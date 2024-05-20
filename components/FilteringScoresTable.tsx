@@ -40,6 +40,7 @@ export default function FilterScoresTable({
         <FilteringSelecter
           buttonLabel="RANK"
           elements={[
+            { value: "", label: "Not Cleared" },
             {
               value: "https://www.piugame.com/l_img/grade/sss_p.png",
               label: "SSS+",
