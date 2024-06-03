@@ -62,7 +62,7 @@ export default function FilteringSelecter({
       >
         {buttonLabel}
         <svg
-          className="ms-2.5 h-2.5 w-2.5"
+          className="ms-2.5 size-2.5"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -92,7 +92,7 @@ export default function FilteringSelecter({
               }
             >
               <svg
-                className="h-6 w-6 text-gray-800 dark:text-white"
+                className="size-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -115,7 +115,7 @@ export default function FilteringSelecter({
               onClick={() => setSelectedValues([])}
             >
               <svg
-                className="h-6 w-6 text-gray-800 dark:text-white"
+                className="size-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -146,8 +146,8 @@ export default function FilteringSelecter({
                     value={element.value}
                     className={
                       selectedValues.length > 0
-                        ? "h-4 w-4 rounded border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-purple-600 dark:focus:ring-offset-gray-700"
-                        : "h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
+                        ? "size-4 rounded border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-purple-600 dark:focus:ring-offset-gray-700"
+                        : "size-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
                     }
                     onChange={() => handleSelectElement(element)}
                   />

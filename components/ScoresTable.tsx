@@ -9,7 +9,7 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
           <tr>
             <th
               scope="col"
-              className="max-w-32 py-2 pl-1 pr-1 md:max-w-96 md:pl-4 md:pr-2"
+              className="max-w-32 px-1 py-2 md:max-w-96 md:pl-4 md:pr-2"
             >
               Song
             </th>
@@ -30,7 +30,7 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
             >
               <th
                 scope="row"
-                className="max-w-32 overflow-hidden text-ellipsis py-2 pl-1 pr-1 font-medium text-gray-900 md:max-w-96 md:pl-4 md:pr-2 dark:text-white"
+                className="max-w-32 overflow-hidden text-ellipsis px-1 py-2 font-medium text-gray-900 md:max-w-96 md:px-4 dark:text-white"
               >
                 {score.songName}
               </th>
