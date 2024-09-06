@@ -2,7 +2,7 @@
 
 ## Architecture
 
-![architecture](./architecture.drawio.svg)
+![architecture](./docs/architecture.drawio.svg)
 
 ## Development
 
