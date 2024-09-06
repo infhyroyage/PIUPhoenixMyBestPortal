@@ -28,13 +28,13 @@ export default function FilteringSelecter({
     (element: FilteringSelecterElement) => {
       if (selectedValues.includes(element.value)) {
         setSelectedValues((prev) =>
-          prev.filter((value) => value !== element.value),
+          prev.filter((value) => value !== element.value)
         );
       } else {
         setSelectedValues((prev) => [...prev, element.value]);
       }
     },
-    [selectedValues, setSelectedValues],
+    [selectedValues, setSelectedValues]
   );
 
   useEffect(() => {
@@ -70,9 +70,9 @@ export default function FilteringSelecter({
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="m1 1 4 4 4-4"
           />
         </svg>
@@ -86,8 +86,8 @@ export default function FilteringSelecter({
               onClick={() =>
                 setSelectedValues(
                   elements.map(
-                    (element: FilteringSelecterElement) => element.value,
-                  ),
+                    (element: FilteringSelecterElement) => element.value
+                  )
                 )
               }
             >
@@ -102,9 +102,9 @@ export default function FilteringSelecter({
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M5 11.917 9.724 16.5 19 7.5"
                 />
               </svg>
@@ -125,9 +125,9 @@ export default function FilteringSelecter({
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M6 18 17.94 6M18 18 6.06 6"
                 />
               </svg>
