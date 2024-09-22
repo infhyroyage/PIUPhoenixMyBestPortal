@@ -5,7 +5,6 @@ env:
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
-  - next/core-web-vitals
   - plugin:vitest/recommended
   - plugin:tailwindcss/recommended
 parser: "@typescript-eslint/parser"
