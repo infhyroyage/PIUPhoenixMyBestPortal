@@ -1,14 +1,14 @@
 {
   "name": "piu-phoenix-my-best-portal",
   "version": "0.1.0",
-  "private": true,
+  "type": "module",
   "scripts": {
     "fetch": "NODE_ENV=production tsx fetcher/index.ts",
     "fetch:dev": "rm -rf imgs;NODE_ENV=development tsx fetcher/index.ts",
     "dev": "next dev",
     "build": "rm -rf .next;next build",
     "start": "serve out",
-    "lint": "eslint '**/*.{ts,tsx}' --fix",
+    "lint": "eslint",
     "test": "vitest"
   },
   "dependencies": {
@@ -19,22 +19,23 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.11.0",
+    "@next/eslint-plugin-next": "^14.2.13",
     "@types/node": "^20.11.1",
     "@types/react": "^18.2.69",
     "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.15.0",
-    "@typescript-eslint/parser": "^7.18.0",
     "@vitest/coverage-v8": "^2.0.5",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.7",
+    "eslint-plugin-react": "^7.36.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
-    "eslint-plugin-vitest": "^0.4.1",
+    "eslint-plugin-vitest": "^0.5.4",
     "postcss": "^8.4.38",
     "serve": "^14.2.3",
     "tailwindcss": "^3.4.10",
     "tsx": "^4.16.2",
     "typescript": "^5.4.3",
+    "typescript-eslint": "^8.6.0",
     "vitest": "^2.0.2"
   }
 }
