@@ -39,7 +39,7 @@ jobs:
         uses: reviewdog/action-eslint@v1
         with:
           eslint_flags: "**/*.{ts,tsx}"
-          fail_on_error: true
+          fail_level: error
           filter_mode: file
           level: warning
           reporter: github-pr-review
