@@ -54,8 +54,8 @@ export default function FilteringSelecter({
       <button
         className={
           selectedValues.length > 0
-            ? "inline-flex items-center rounded-lg bg-purple-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
-            : "inline-flex items-center rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            ? "inline-flex items-center rounded-lg bg-purple-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-purple-800 focus:outline-hidden focus:ring-4 focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+            : "inline-flex items-center rounded-lg bg-blue-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-hidden focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         }
         type="button"
         onClick={() => setOpen(!open)}
@@ -78,11 +78,11 @@ export default function FilteringSelecter({
         </svg>
       </button>
       {open && (
-        <div className="absolute z-10 mt-10 w-auto rounded-lg bg-white shadow dark:bg-gray-700">
+        <div className="absolute z-10 mt-10 w-auto rounded-lg bg-white shadow-sm dark:bg-gray-700">
           <div className="flex justify-around px-3 py-2">
             <button
               type="button"
-              className="me-2 inline-flex items-center rounded-full bg-green-700 p-2.5 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              className="me-2 inline-flex items-center rounded-full bg-green-700 p-2.5 text-center text-sm font-medium text-white hover:bg-green-800 focus:outline-hidden focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
               onClick={() =>
                 setSelectedValues(
                   elements.map(
@@ -111,7 +111,7 @@ export default function FilteringSelecter({
             </button>
             <button
               type="button"
-              className="me-2 inline-flex items-center rounded-full bg-red-700 p-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+              className="me-2 inline-flex items-center rounded-full bg-red-700 p-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-hidden focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
               onClick={() => setSelectedValues([])}
             >
               <svg
@@ -137,7 +137,7 @@ export default function FilteringSelecter({
             {elements.map((element: FilteringSelecterElement, idx: number) => (
               <li key={idx}>
                 <div
-                  className="flex items-center rounded p-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                  className="flex items-center rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600"
                   onClick={() => handleSelectElement(element)}
                 >
                   <input
@@ -146,12 +146,12 @@ export default function FilteringSelecter({
                     value={element.value}
                     className={
                       selectedValues.length > 0
-                        ? "size-4 rounded border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-purple-600 dark:focus:ring-offset-gray-700"
-                        : "size-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
+                        ? "size-4 rounded-sm border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-purple-600 dark:focus:ring-offset-gray-700"
+                        : "size-4 rounded-sm border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
                     }
                     onChange={() => handleSelectElement(element)}
                   />
-                  <label className="ml-2 w-full rounded text-sm font-medium text-gray-900 dark:text-gray-300">
+                  <label className="ml-2 w-full rounded-sm text-sm font-medium text-gray-900 dark:text-gray-300">
                     {element.label}
                   </label>
                 </div>

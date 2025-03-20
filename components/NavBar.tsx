@@ -10,7 +10,7 @@ export default function NavBar() {
 
   return (
     <nav className="w-full border-gray-200 bg-white dark:bg-gray-900">
-      <div className="mx-auto flex max-w-screen-xl items-center justify-between p-4">
+      <div className="mx-auto flex max-w-(--breakpoint-xl) items-center justify-between p-4">
         <div className="flex flex-1 items-center justify-between">
           <span className="self-center truncate whitespace-nowrap text-2xl font-semibold dark:text-white">
             Phoenix My Best List
@@ -18,7 +18,7 @@ export default function NavBar() {
           <button
             data-collapse-toggle="navbar-default"
             type="button"
-            className="inline-flex items-center justify-center rounded-lg p-1 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center justify-center rounded-lg p-1 text-sm text-gray-500 hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-default"
             aria-expanded={isOpenMenu}
             onClick={() => setIsOpenMenu(!isOpenMenu)}
