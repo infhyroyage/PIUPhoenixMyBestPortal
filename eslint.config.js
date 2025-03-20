@@ -8,6 +8,9 @@ import vitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
 
 export default [
+  {
+    ignores: [".next/**", "out/**"],
+  },
   ...tseslint.config(
     eslint.configs.recommended,
     ...tseslint.configs.recommended

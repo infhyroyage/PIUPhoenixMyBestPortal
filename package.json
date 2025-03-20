@@ -8,7 +8,7 @@
     "dev": "next dev",
     "build": "rm -rf .next;next build",
     "start": "serve out",
-    "lint": "eslint",
+    "lint": "eslint .",
     "test": "vitest"
   },
   "dependencies": {

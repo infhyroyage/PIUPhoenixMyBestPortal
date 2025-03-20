@@ -38,7 +38,6 @@ jobs:
       - name: Lint
         uses: reviewdog/action-eslint@v1
         with:
-          eslint_flags: "**/*.{ts,tsx}"
           fail_level: error
           filter_mode: file
           level: warning
