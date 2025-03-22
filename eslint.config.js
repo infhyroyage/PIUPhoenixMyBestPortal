@@ -3,7 +3,6 @@
 import eslint from "@eslint/js";
 import next from "@next/eslint-plugin-next";
 import react from "eslint-plugin-react";
-import tailwindcss from "eslint-plugin-tailwindcss";
 import vitest from "eslint-plugin-vitest";
 import tseslint from "typescript-eslint";
 
@@ -28,14 +27,6 @@ export default [
       react: {
         version: "detect",
       },
-    },
-  },
-  {
-    plugins: {
-      tailwindcss,
-    },
-    rules: {
-      ...tailwindcss.configs.recommended.rules,
     },
   },
   {
