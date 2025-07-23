@@ -12,7 +12,7 @@ export default function ClientPage({ allScoresData }: ClientPageProps) {
   const searchParams = useSearchParams();
   const lv = searchParams.get("lv") as Lv | null;
   
-  // クエリパラメーターに基づいて適切なデータを選択
+  // Select appropriate data based on query parameters
   const scores = lv ? allScoresData[lv] || [] : allScoresData.all || [];
 
   return <FilterScoresTable scores={scores} lv={lv || undefined} />;

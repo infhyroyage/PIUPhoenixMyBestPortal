@@ -3,16 +3,16 @@ import { getScores } from "@/services/gist";
 import { Lv, Score } from "@/services/types";
 import ClientPage from "./ClientPage";
 
-// 全レベルのデータを事前取得
+// Pre-fetch data for all levels
 async function getAllScores() {
   const levels: Lv[] = ["20", "21", "22", "23", "24", "25", "26", "27over", "coop"];
   
   const scoresData: Record<string, Score[]> = {};
   
-  // 全スコアを取得（lvパラメーターなし）
+  // Get all scores (without lv parameter)
   scoresData.all = await getScores();
   
-  // 各レベル別のスコアを取得
+  // Get scores for each level
   for (const lv of levels) {
     scoresData[lv] = await getScores(lv);
   }
