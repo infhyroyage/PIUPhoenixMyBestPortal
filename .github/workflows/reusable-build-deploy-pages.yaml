@@ -8,7 +8,7 @@ on:
   workflow_call:
     inputs:
       NODE_VERSION:
-        default: "20.10.0"
+        default: "22.17.1"
         required: false
         type: string
     secrets:

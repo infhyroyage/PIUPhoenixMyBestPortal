@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export default function NavBar() {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-  const pathname: string = usePathname();
+  const searchParams = useSearchParams();
+  const currentLv = searchParams.get("lv");
 
   return (
     <nav className="w-full border-gray-200 bg-white dark:bg-gray-900">
@@ -47,7 +48,7 @@ export default function NavBar() {
               <Link
                 href="/"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/"
+                  currentLv === null
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -57,9 +58,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/20"
+                href="/?lv=20"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/20"
+                  currentLv === "20"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -69,9 +70,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/21"
+                href="/?lv=21"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/21"
+                  currentLv === "21"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -81,9 +82,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/22"
+                href="/?lv=22"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/22"
+                  currentLv === "22"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -93,9 +94,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/23"
+                href="/?lv=23"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/23"
+                  currentLv === "23"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -105,9 +106,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/24"
+                href="/?lv=24"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/24"
+                  currentLv === "24"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -117,9 +118,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/25"
+                href="/?lv=25"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/25"
+                  currentLv === "25"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -129,9 +130,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/26"
+                href="/?lv=26"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/26"
+                  currentLv === "26"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -141,9 +142,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/27over"
+                href="/?lv=27over"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/27over"
+                  currentLv === "27over"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -153,9 +154,9 @@ export default function NavBar() {
             </li>
             <li>
               <Link
-                href="/coop"
+                href="/?lv=coop"
                 className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                  pathname === "/coop"
+                  currentLv === "coop"
                     ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                     : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                 }`}
@@ -180,7 +181,7 @@ export default function NavBar() {
                   <Link
                     href="/"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/"
+                      currentLv === null
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -190,9 +191,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/20"
+                    href="/?lv=20"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/20"
+                      currentLv === "20"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -202,9 +203,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/21"
+                    href="/?lv=21"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/21"
+                      currentLv === "21"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -214,9 +215,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/22"
+                    href="/?lv=22"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/22"
+                      currentLv === "22"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -226,9 +227,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/23"
+                    href="/?lv=23"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/23"
+                      currentLv === "23"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -238,9 +239,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/24"
+                    href="/?lv=24"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/24"
+                      currentLv === "24"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -250,9 +251,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/25"
+                    href="/?lv=25"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/25"
+                      currentLv === "25"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -262,9 +263,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/26"
+                    href="/?lv=26"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/26"
+                      currentLv === "26"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -274,9 +275,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/27over"
+                    href="/?lv=27over"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/27over"
+                      currentLv === "27over"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
@@ -286,9 +287,9 @@ export default function NavBar() {
                 </li>
                 <li onClick={() => setIsOpenMenu(false)}>
                   <Link
-                    href="/coop"
+                    href="/?lv=coop"
                     className={`block rounded px-3 py-2 md:p-0 dark:text-white ${
-                      pathname === "/coop"
+                      currentLv === "coop"
                         ? "bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:dark:text-blue-500"
                         : "text-gray-900 hover:bg-gray-100 md:border-0 md:hover:bg-transparent md:hover:text-blue-700 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
                     }`}
