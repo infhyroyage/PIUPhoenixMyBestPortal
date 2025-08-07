@@ -10,7 +10,7 @@ permissions:
   id-token: write
 
 env:
-  NODE_VERSION: "20.10.0"
+  NODE_VERSION: "22.17.1"
 
 jobs:
   fetch:
