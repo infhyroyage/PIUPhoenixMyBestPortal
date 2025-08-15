@@ -32,7 +32,7 @@
     "eslint-plugin-vitest": "^0.5.4",
     "postcss": "^8.5.6",
     "serve": "^14.2.4",
-    "tailwindcss": "^4.1.7",
+    "tailwindcss": "^4.1.12",
     "tsx": "^4.19.4",
     "typescript": "^5.4.3",
     "typescript-eslint": "^8.36.0",
