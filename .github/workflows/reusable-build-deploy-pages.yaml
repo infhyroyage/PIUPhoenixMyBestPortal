@@ -61,7 +61,7 @@ jobs:
           GIST_PAT: ${{ secrets.GIST_PAT }}
 
       - name: Create Coverage Badges
-        uses: jaywcjlove/coverage-badges-cli@v2.1.0
+        uses: jaywcjlove/coverage-badges-cli@v2.2.0
         with:
           output: out/badges.svg
 
