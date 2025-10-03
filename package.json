@@ -33,7 +33,7 @@
     "postcss": "^8.5.6",
     "serve": "^14.2.5",
     "tailwindcss": "^4.1.12",
-    "tsx": "^4.19.4",
+    "tsx": "^4.20.6",
     "typescript": "^5.4.3",
     "typescript-eslint": "^8.36.0",
     "vitest": "^3.2.4"
