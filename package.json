@@ -14,7 +14,7 @@
   "dependencies": {
     "dotenv": "^17.2.1",
     "next": "^14.2.30",
-    "playwright-chromium": "^1.53.0",
+    "playwright-chromium": "^1.56.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
