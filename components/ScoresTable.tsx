@@ -52,8 +52,8 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
                         <Image
                           src={score.gradeImgSrc}
                           alt={score.songName}
-                          layout="fill"
-                          objectFit="contain"
+                          fill
+                          style={{ objectFit: "contain" }}
                         />
                       )}
                     </div>
@@ -62,8 +62,8 @@ export default function ScoresTable({ scores }: { scores: Score[] }) {
                         <Image
                           src={score.plateImgSrc}
                           alt={score.songName}
-                          layout="fill"
-                          objectFit="contain"
+                          fill
+                          style={{ objectFit: "contain" }}
                         />
                       )}
                     </div>
