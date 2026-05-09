@@ -30,7 +30,7 @@
     "eslint": "^9.28.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-vitest": "^0.5.4",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.11",
     "serve": "^14.2.6",
     "tailwindcss": "^4.1.12",
     "tsx": "^4.20.6",
